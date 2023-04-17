@@ -1,0 +1,44 @@
+.userCard {
+  padding: 16px;
+
+  .userInfo {
+    width: 50%;
+    div {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .userActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 50%;
+    button {
+      font-size: 16px;
+      height: 40px;
+      width: 100%;
+      border-radius: 2px;
+      border: none;
+      background-color: #3fbe5b;
+      color: ffff;
+      transition: background 250ms;
+
+      &:hover {
+        color: #fff;
+        background-color: #317a41;
+      }
+    }
+  }
+
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
+  background-color: #12131b;
+  border-radius: 5px;
+
+  button {
+    background-color: #3fbe5b;
+  }
+}

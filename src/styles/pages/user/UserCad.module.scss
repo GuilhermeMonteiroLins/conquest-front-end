@@ -1,0 +1,14 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .grupo {
+    display: flex;
+    .radio1 {
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+  }
+}

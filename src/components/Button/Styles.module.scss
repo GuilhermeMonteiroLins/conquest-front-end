@@ -1,0 +1,37 @@
+.container {
+  button {
+    font-weight: bold;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    margin: 4px;
+    transition: background 100ms;
+  }
+}
+
+.primary {
+  background-color: #3fbe5b;
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+    background-color: #317a41;
+  }
+}
+.cancel {
+  background-color: #ff6868;
+  color: #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  &:hover {
+    color: #fff;
+    background-color: #ca5757;
+  }
+}
+.goback{
+  background-color: #8ad9e3 ;
+}

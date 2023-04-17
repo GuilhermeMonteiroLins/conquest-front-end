@@ -1,0 +1,64 @@
+.container {   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.componentUser{
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.componentProduct{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.btnUser{
+    border: #fff solid 2px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.btnProduct{
+    border: #fff solid 2px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.data{
+    margin-top: 15px;
+    flex-grow: 5;
+    display: flex;
+}
+
+.Button{
+    display: flex;
+    margin: 25px;
+    justify-content: end;
+    
+}
+
+.paragraph{
+    font-size: larger;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+.title{
+    margin-bottom: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.saudation{
+    margin-left: 25px;
+    position: absolute;
+    font-size:large;
+    border-bottom: #fff solid 1px;
+}
