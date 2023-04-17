@@ -12,7 +12,7 @@ export default function Home() {
   const router = useRouter()
   return (
     <>
-    <span className={styles.saudation}>Seja bem-vindo {JSON.parse(localStorage.getItem("userData")).email}</span>
+    <span className={styles.saudation}>Seja bem-vindo {JSON.parse(localStorage.getItem("userData")).userEmail}</span>
       <div className={styles.Button}>
       <Button onClick={() => getOut(router) } type="button" color={"goback"}>Sair</Button>
       </div>

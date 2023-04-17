@@ -9,15 +9,15 @@ export default function Login() {
   const router = useRouter()
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let teste = await ApiUserBackLogin(email, senha)
-    console.log("Mostrando o teste", teste)
-    if (teste.idUser == 0) {
+    let autenticate = await ApiUserBackLogin(email, senha)
+    console.log("Mostrando o teste", autenticate)
+    if (autenticate.userId == 0) {
       alert("Usuário não encontrado!")
     } else {
       alert("Login completo!")
-      teste.email = email;
-      teste.senha = senha;
-      localStorage.setItem("userData", JSON.stringify(teste))
+      autenticate.userEmail = email;
+      autenticate.userSenha = senha;
+      localStorage.setItem("userData", JSON.stringify(autenticate))
       console.log(JSON.parse(localStorage.getItem("userData")))
       router.push("/home")
     }

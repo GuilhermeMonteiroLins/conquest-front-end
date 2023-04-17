@@ -77,8 +77,8 @@ export const ApiUserList = async () => {
 export const ApiUserBackLogin = async (email, password) => {
   let data;
   const object = JSON.stringify({
-    email: email,
-    password: password,
+    userEmail: email,
+    userPassword: password,
   })
   await fetch(`${url}/user/loginbackoffice`, {
     method: "POST",
@@ -141,8 +141,8 @@ export const ApiCEPList = async (cep = '00000000') => {
 export const ApiUserStatus = async (cpf, statusUser) => {
   let data;
   const object = JSON.stringify({
-    cpf: cpf,
-    statusUser: statusUser,
+    userCpf: cpf,
+    userStatus: statusUser,
   })
   await fetch(`${url}/backoffice/user/update/status`, {
     method: "PUT",
