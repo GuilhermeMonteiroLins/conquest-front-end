@@ -68,7 +68,7 @@ export default function ProdCad() {
 
   return (
     <div className={styles.page}>
-      <button>Voltar</button>
+      <button onClick={router.push("/product/prodList")}>Voltar</button>
       <h1>Cadastro de produtos</h1>
       <div className={styles.container}>
         <form onSubmit={handleSubmit}>
