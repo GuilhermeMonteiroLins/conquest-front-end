@@ -162,7 +162,7 @@ export const ApiUserStatus = async (cpf, statusUser) => {
   return data;
 };
 
-export const apiCadProduct = async (object) => {
+export const ApiCadProduct = async (object) => {
   console.log(object);
   let response = await fetch(`${url}/backoffice/product/register`, {
     method: "POST",

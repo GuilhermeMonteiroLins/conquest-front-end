@@ -13,7 +13,7 @@ export default function List() {
     try {
       const listaUsuario = await ApiUserList()
       setUserList(listaUsuario)
-      console.log(userList)
+      console.log("teste lista de usuário", listaUsuario)
     } catch (error) {
       console.log(error)
     }

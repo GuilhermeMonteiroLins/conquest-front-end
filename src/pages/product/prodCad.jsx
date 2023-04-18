@@ -4,7 +4,7 @@ import styles from '@/styles/pages/product/ProdCad.module.scss'
 import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
 import { useRouter } from 'next/router'
-import { apiCadProduct } from '@/services/api'
+import { ApiCadProduct } from '@/services/api'
 
 export default function ProdCad() {
   const router = useRouter()
@@ -44,7 +44,7 @@ export default function ProdCad() {
       productImages: images
     }
 
-    let result = await apiCadProduct(request);
+    let result = await ApiCadProduct(request);
 
     if (result === 201) {
       alert("Produto Cadastrado!")
