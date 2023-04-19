@@ -2,6 +2,9 @@ import { useState } from 'react'
 import styles from '@/styles/pages/Login.module.scss'
 import { ApiUserBackLogin } from '@/services/api'
 import { useRouter } from 'next/router'
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+import toastifyConfig from '@/util/ToastifyConfigs/toastifyConfig';
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -12,9 +15,9 @@ export default function Login() {
     let autenticate = await ApiUserBackLogin(email, senha)
     console.log("Mostrando o teste", autenticate)
     if (autenticate.userId == 0) {
-      alert("Usuário não encontrado!")
+      Toastify(toastifyConfig.error).showToast()
     } else {
-      alert("Login completo!")
+      Toastify(toastifyConfig.login).showToast()
       autenticate.userEmail = email;
       autenticate.userSenha = senha;
       localStorage.setItem("userData", JSON.stringify(autenticate))
