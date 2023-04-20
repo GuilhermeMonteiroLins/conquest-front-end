@@ -7,12 +7,14 @@ export default function UsarToggle(user) {
     const [toggleIsActive, setToggleIsActive] = useState(user.userStatus)
 
     useEffect(() => {
-        const updateStatus = async () => {
-            const response = await ApiUserStatus(user.userCpf, toggleIsActive)
-            setToggleIsActive(response.statusUser)
-        }
-        updateStatus()
+       
+        
     }, [toggleIsActive, user.userCpf])
+
+    const updateStatus = async () => {
+        const response = await ApiUserStatus(user.userCpf, toggleIsActive)
+        setToggleIsActive(response.statusUser)
+    }
 
     const handleToggle = () => {
         setToggleIsActive(!toggleIsActive)

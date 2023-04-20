@@ -4,7 +4,7 @@ import styles from '@/styles/pages/product/ProdCad.module.scss'
 import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
 import { useRouter } from 'next/router'
-import { ApiCadProduct } from '@/services/api'
+import { apiCadProduct } from '@/services/api'
 
 export default function ProdCad() {
   const router = useRouter()
@@ -44,7 +44,7 @@ export default function ProdCad() {
       productImages: images
     }
 
-    let result = await ApiCadProduct(request);
+    let result = await apiCadProduct(request);
 
     if (result === 201) {
       alert("Produto Cadastrado!")
@@ -68,7 +68,7 @@ export default function ProdCad() {
 
   return (
     <div className={styles.page}>
-      <button onClick={router.push("/product/prodList")}>Voltar</button>
+      <button onClick={() => router.push("/product/prodList")}>Voltar</button>
       <h1>Cadastro de produtos</h1>
       <div className={styles.container}>
         <form onSubmit={handleSubmit}>

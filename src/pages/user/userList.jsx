@@ -1,27 +1,12 @@
 import { useEffect, useState } from 'react'
 import styles from '@/styles/pages/user/List.module.scss'
-import { UserItem } from '@/components/pages/user/UserItem'
 import { ApiUserList } from '@/services/api'
 import { useRouter } from "next/router"
 import { Button } from '@/components/Button'
+import Table from '@/components/Table'
 
 export default function List() {
-  const [userList, setUserList] = useState([])
   const router = useRouter()
-
-  const fetchUserList = async () => {
-    try {
-      const listaUsuario = await ApiUserList()
-      setUserList(listaUsuario)
-      console.log("teste lista de usuário", listaUsuario)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchUserList()
-  }, [])
 
   return (
     <>
@@ -34,14 +19,14 @@ export default function List() {
         <div className={styles.topbar}>
           <div className={styles.cad}>
             <input type="text" placeholder="Busca de usuario" />
-            <button onClick={()=>router.push("userCad")} type="button" className={styles.userCad}>
+            <button onClick={() => router.push("userCad")} type="button" className={styles.userCad}>
               +
             </button>
           </div>
         </div>
-        {userList.map((user) => (
-          <UserItem key={user.id} user={user} />
-        ))}
+        <Table
+          render={"usuario"}
+        />
       </div>
     </>
   )

@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Styles.module.scss"
 import { useRouter } from "next/router";
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-import UsarToggle from "../Toggle";
-
-
-//props.data -> dados
+import 'rsuite/dist/rsuite.min.css'
+import { Toggle } from "rsuite";
+import { ApiUserStatus, ApiUserList } from "@/services/api";
 
 const Table = (props) => {
+
+    const [userData, setUserData] = useState([])
     const router = useRouter()
+
+    const handleToggle = async (userId, userIsActive) => {
+        const response = await ApiUserStatus(userId, userIsActive)
+        if (response == 202) {
+            await fetchUserList()
+        }
+    }
+
+    const fetchUserList = async () => {
+        try {
+            const listaUsuario = await ApiUserList()
+            setUserData(listaUsuario)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchUserList()
+    }, [])
 
     const handleAlteration = (user, e) => {
         e.preventDefault()
@@ -43,13 +64,13 @@ const Table = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.data.map(user => (
+                        {userData.map(user => (
                             <tr key={user.userCpf}>
                                 <td> {user.userName} </td>
                                 <td> {user.userCpf} </td>
                                 <td> {user.userEmail} </td>
-                                <td> {user.userGroup === 1 ? 'Administrador' : user.userGroup === 2 ? 'Estoquista' : 'Inativo/Sem Grupo'} </td>
-                                <td> {<UsarToggle user={user} />} </td>
+                                <td> {user.userGroup === 1 ? 'Administrador' : user.group === 2 ? 'Estoquista' : 'Inativo/Sem Grupo'} </td>
+                                <td> <Toggle onChange={() => handleToggle(user.userId, !user.userStatus)} checked={user.userStatus == true} /> </td>
                                 <td>
                                     <button onClick={(e) => handleAlteration(user, e)}>
                                         <img className={styles.imagem} src="/images/pen.png" />
