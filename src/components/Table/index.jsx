@@ -1,20 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Styles.module.scss"
 import { useRouter } from "next/router";
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-
-
-//props.data -> dados
+import 'rsuite/dist/rsuite.min.css'
+import { Toggle } from "rsuite";
+import { ApiUserStatus, ApiUserList } from "@/services/api";
 
 const Table = (props) => {
-    
+
+    const [userData, setUserData] = useState([])
     const router = useRouter()
 
+    const handleToggle = async (userId, userIsActive) => {
+        const response = await ApiUserStatus(userId, userIsActive)
+        if (response == 202) {
+            await fetchUserList()
+        }
+    }
+
+    const fetchUserList = async () => {
+        try {
+            const listaUsuario = await ApiUserList()
+            setUserData(listaUsuario)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchUserList()
+    }, [])
+
     const handleAlteration = (user, e) => {
-        e.preventDefault()    
+        e.preventDefault()
         localStorage.setItem("alterationUser", JSON.stringify(user))
-        
+
         Toastify({
             text: "Indo para a próxima tela.",
             duration: 3000,
@@ -24,10 +45,10 @@ const Table = (props) => {
             position: "center",
             backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
             stopOnFocus: true,
-          }).showToast();
+        }).showToast();
         router.push('/user/userAlt')
     }
-    
+
     if (props.render === "usuario") {
         return (
             <section className={styles.container}>
@@ -43,17 +64,17 @@ const Table = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.data.map(user => (
-                            <tr key={user.cpf}>
-                                <td> {user.nameUser} </td>
-                                <td> {user.cpf} </td>
-                                <td> {user.email} </td>
-                                <td> {user.group === 1 ? 'Administrador' : user.group === 2 ? 'Estoquista' : 'Inativo/Sem Grupo'} </td>
-                                <td> {user.status ? 'Ativo' : 'Inativo'} </td>
-                                <td> 
-                                    <button onClick={(e) => handleAlteration(user, e) }> 
-                                        <img className={styles.imagem}src="/images/pen.png"/>
-                                    </button> 
+                        {userData.map(user => (
+                            <tr key={user.userCpf}>
+                                <td> {user.userName} </td>
+                                <td> {user.userCpf} </td>
+                                <td> {user.userEmail} </td>
+                                <td> {user.userGroup === 1 ? 'Administrador' : user.group === 2 ? 'Estoquista' : 'Inativo/Sem Grupo'} </td>
+                                <td> <Toggle onChange={() => handleToggle(user.userId, !user.userStatus)} checked={user.userStatus == true} /> </td>
+                                <td>
+                                    <button onClick={(e) => handleAlteration(user, e)}>
+                                        <img className={styles.imagem} src="/images/pen.png" />
+                                    </button>
                                 </td>
                             </tr>
                         ))

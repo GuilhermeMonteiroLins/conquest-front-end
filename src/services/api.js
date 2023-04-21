@@ -137,10 +137,10 @@ export const ApiCEPList = async (cep = '00000000') => {
   // Retornar apenas a lista
 };
 
-export const ApiUserStatus = async (cpf, statusUser) => {
+export const ApiUserStatus = async (id, statusUser) => {
   let data;
   const object = JSON.stringify({
-    userCpf: cpf,
+    userId: id,
     userStatus: statusUser,
   })
   await fetch(`${url}/backoffice/user/update/status`, {
@@ -151,7 +151,7 @@ export const ApiUserStatus = async (cpf, statusUser) => {
     body: object,
   })
     .then(async (response) => {
-      data = await response.json();
+      data = await response.status;
     })
     .catch(async (error) => {
       console.log(object)
@@ -161,7 +161,7 @@ export const ApiUserStatus = async (cpf, statusUser) => {
   return data;
 };
 
-export const apiCadProduct = async (object) => {
+export const ApiCadProduct = async (object) => {
   console.log(object);
   let response = await fetch(`${url}/backoffice/product/register`, {
     method: "POST",

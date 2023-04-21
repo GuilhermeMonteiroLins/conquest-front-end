@@ -31,7 +31,7 @@ export default function List() {
       <div className={styles.container}>
         <div className={styles.topbar}>
           <input type="text" placeholder="Busca de Produto" />
-          <button onClick={() => router.push("prodCad")} type="button" className={styles.ProdCad}>
+          <button onClick={() => router.push("/product/prodCad")} type="button" className={styles.ProdCad}>
             Cadastro de Produto
           </button>
         </div>
