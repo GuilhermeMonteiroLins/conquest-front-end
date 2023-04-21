@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styles from '@/styles/pages/Login.module.scss'
-import { ApiUserBackLogin } from '@/services/api'
+import { apiUserBackLogin } from '@/services/api'
 import { useRouter } from 'next/router'
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
@@ -12,7 +12,7 @@ export default function Login() {
   const router = useRouter()
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let autenticate = await ApiUserBackLogin(email, senha)
+    let autenticate = await apiUserBackLogin(email, senha)
     console.log("Mostrando o teste", autenticate)
     if (autenticate.userId == 0) {
       Toastify(toastifyConfig.error).showToast()
