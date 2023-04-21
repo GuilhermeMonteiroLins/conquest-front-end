@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from '@/styles/pages/user/List.module.scss'
 import { UserItem } from '@/components/pages/user/UserItem'
-import { ApiUserList } from '@/services/api'
+import { apiUserList } from '@/services/api'
 import { useRouter } from "next/router"
 import { Button } from '@/components/Button'
 import Table from '@/components/Table'
@@ -12,7 +12,7 @@ export default function List() {
 
   const fetchUserList = async () => {
     try {
-      const listaUsuario = await ApiUserList()
+      const listaUsuario = await apiUserList()
       setUserList(listaUsuario)
       console.log(userList)
     } catch (error) {
