@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import styles from '@/styles/pages/user/List.module.scss'
-import { ApiUserList } from '@/services/api'
 import { UserItem } from '@/components/pages/user/UserItem'
 import { apiUserList } from '@/services/api'
 import { useRouter } from "next/router"
@@ -14,7 +13,7 @@ export default function List() {
     try {
       const listaUsuario = await apiUserList()
       setUserList(listaUsuario)
-      console.log(userList)
+      console.log(listaUsuario)
     } catch (error) {
       console.log(error)
     }

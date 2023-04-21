@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from '@/styles/pages/user/List.module.scss'
 import { UserItem } from '@/components/pages/user/UserItem'
-import { ApiProdList } from '@/services/api'
+import { apiProdList } from '@/services/api'
 import { useRouter } from "next/router"
 
 export default function List() {
@@ -10,7 +10,7 @@ export default function List() {
 
   const fetchProdList = async () => {
     try {
-      const listaProd = await ApiProdList()
+      const listaProd = await apiProdList()
       setProdList(listaProd)
       console.log(prodList)
     } catch (error) {

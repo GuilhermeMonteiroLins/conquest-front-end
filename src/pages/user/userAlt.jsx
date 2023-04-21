@@ -6,7 +6,7 @@ import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import validarCPF from "@/util/validarCPF";
 import validarNome from "@/util/validarNome";
-import { ApiUserAlt } from "@/services/api";
+import { apiUserAlt } from "@/services/api";
 
 export default function Home() {
   const [nome, setNome] = useState("");
@@ -89,7 +89,7 @@ export default function Home() {
     if (!validadeFields()) {
       return alert("Campo inválido.");
     }
-    let data = ApiUserAlt(nome, cpf, senha, grupo, status);
+    let data = apiUserAlt(nome, cpf, senha, grupo, status);
     console.log(data);
     alert("Usuário alterado!");
   };
