@@ -4,6 +4,7 @@ import { UserItem } from '@/components/pages/user/UserItem'
 import { ApiUserList } from '@/services/api'
 import { useRouter } from "next/router"
 import { Button } from '@/components/Button'
+import Table from '@/components/Table'
 
 export default function List() {
   const [userList, setUserList] = useState([])
@@ -39,9 +40,10 @@ export default function List() {
             </button>
           </div>
         </div>
-        {userList.map((user) => (
-          <UserItem key={user.id} user={user} />
-        ))}
+        <Table
+          render={"usuario"}
+          data={userList}
+        />
       </div>
     </>
   )
