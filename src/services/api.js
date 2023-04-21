@@ -1,6 +1,6 @@
 const url = "http://localhost:8080/conquest";
 
-export const ApiUserCad = async (nameUser, cpf, email, password, group, status) => {
+export const apiUserCad = async (nameUser, cpf, email, password, group) => {
   let data;
   await fetch(`${url}/backoffice/user/register`, {
     method: "POST",
@@ -8,12 +8,11 @@ export const ApiUserCad = async (nameUser, cpf, email, password, group, status) 
       "Content-type": "application/json",
     },
     body: JSON.stringify({
-      nameUser: nameUser,
-      cpf: cpf,
-      email: email,
-      password: password,
-      group: group,
-      status: true
+      userName: nameUser,
+      userCpf: cpf,
+      userEmail: email,
+      userPassword: password,
+      userGroup: group,
     }),
   })
     .then(async (response) => {
@@ -53,7 +52,7 @@ export const ApiUserAlt = async (nameUser, cpf, password, group, status) => {
   return data;
 };
 
-export const ApiUserList = async () => {
+export const apiUserList = async () => {
   let data;
   const object = []
   await fetch(`${url}/backoffice/user/list`, {
