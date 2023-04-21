@@ -5,7 +5,7 @@ import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import 'rsuite/dist/rsuite.min.css'
 import { Toggle } from "rsuite";
-import { ApiUserStatus, ApiUserList } from "@/services/api";
+import { apiUserStatus, apiUserList } from "@/services/api";
 
 const Table = (props) => {
 
@@ -13,7 +13,7 @@ const Table = (props) => {
     const router = useRouter()
 
     const handleToggle = async (userId, userIsActive) => {
-        const response = await ApiUserStatus(userId, userIsActive)
+        const response = await apiUserStatus(userId, userIsActive)
         if (response == 202) {
             await fetchUserList()
         }
@@ -21,7 +21,7 @@ const Table = (props) => {
 
     const fetchUserList = async () => {
         try {
-            const listaUsuario = await ApiUserList()
+            const listaUsuario = await apiUserList()
             setUserData(listaUsuario)
         } catch (error) {
             console.log(error)
