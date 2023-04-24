@@ -13,7 +13,6 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     let autenticate = await apiUserBackLogin(email, senha)
-    console.log("Mostrando o teste", autenticate)
     if (autenticate.userId == 0) {
       Toastify(toastifyConfig.error).showToast()
     } else {
@@ -21,7 +20,6 @@ export default function Login() {
       autenticate.userEmail = email;
       autenticate.userSenha = senha;
       localStorage.setItem("userData", JSON.stringify(autenticate))
-      console.log(JSON.parse(localStorage.getItem("userData")))
       router.push("/home")
     }
 

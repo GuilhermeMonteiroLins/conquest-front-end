@@ -1,19 +1,32 @@
 import { useEffect, useState } from 'react'
 import styles from '@/styles/pages/user/List.module.scss'
-import { UserItem } from '@/components/pages/user/UserItem'
-import { apiUserList } from '@/services/api'
+import { apiUserStatus, apiUserList, apiUserSearch } from "@/services/api";
 import { useRouter } from "next/router"
 import { Button } from '@/components/Button'
-import Table from '@/components/Table'
+import { Toggle } from 'rsuite'
+import 'rsuite/dist/rsuite.min.css'
 
 export default function List() {
+  const [userData, setUserData] = useState([])
+  const [nome, setNome] = useState('')
+  const userInfo = JSON.parse(localStorage.getItem('userData'))
   const router = useRouter()
+
+  const handleToggle = async (userId, userIsActive) => {
+    if (userInfo.userId === userId) {
+      alert("Você não podo alterar o seu próprio usuário!!!")
+      return;
+    }
+    const response = await apiUserStatus(userId, userIsActive)
+    if (response == 202) {
+      await fetchUserList()
+    }
+  }
 
   const fetchUserList = async () => {
     try {
       const listaUsuario = await apiUserList()
-      setUserList(listaUsuario)
-      console.log(listaUsuario)
+      setUserData(listaUsuario)
     } catch (error) {
       console.log(error)
     }
@@ -22,6 +35,34 @@ export default function List() {
   useEffect(() => {
     fetchUserList()
   }, [])
+
+  const handleUserSearch = async () => {
+    try {
+      const userSearchList = await apiUserSearch(nome)
+      setUserData(userSearchList)
+      console.log(userData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleAlteration = (user, e) => {
+    e.preventDefault()
+    localStorage.setItem("alterationUser", JSON.stringify(user))
+
+    Toastify({
+      text: "Indo para a próxima tela.",
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      stopOnFocus: true,
+    }).showToast();
+    router.push('/user/userAlt')
+  }
+
 
   return (
     <>
@@ -33,16 +74,49 @@ export default function List() {
       <div className={styles.container}>
         <div className={styles.topbar}>
           <div className={styles.cad}>
-            <input type="text" placeholder="Busca de usuario" />
+            <input type="text"
+              placeholder="Busca de usuario"
+              onChange={(e) => setNome(e.target.value)} />
+            <button onClick={() => handleUserSearch()} type="button" className={styles.userCad}>
+              🔍
+            </button>
             <button onClick={() => router.push("userCad")} type="button" className={styles.userCad}>
               +
             </button>
           </div>
         </div>
-        <Table
-          render={"usuario"}
-        />
-      </div>
+        <section className={styles.containerUserList}>
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>E-mail</th>
+                <th>Grupo</th>
+                <th>Status</th>
+                <th>Alterar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userData.map(user => (
+                <tr key={user.userCpf}>
+                  <td> {user.userName} </td>
+                  <td> {user.userCpf} </td>
+                  <td> {user.userEmail} </td>
+                  <td> {user.userGroup === 1 ? 'Administrador' : user.group === 2 ? 'Estoquista' : 'Inativo/Sem Grupo'} </td>
+                  <td> <Toggle onChange={() => handleToggle(user.userId, !user.userStatus)} checked={user.userStatus == true} /> </td>
+                  <td>
+                    <button onClick={(e) => handleAlteration(user, e)}>
+                      <img className={styles.imagem} src="/images/pen.png" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+              }
+            </tbody>
+          </table>
+        </section>
+      </div >
     </>
   )
 }
