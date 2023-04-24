@@ -1,6 +1,6 @@
 const url = "http://localhost:8080/conquest";
 
-export const ApiUserCad = async (nameUser, cpf, email, password, group, status) => {
+export const apiUserCad = async (nameUser, cpf, email, password, group) => {
   let data;
   await fetch(`${url}/backoffice/user/register`, {
     method: "POST",
@@ -8,12 +8,11 @@ export const ApiUserCad = async (nameUser, cpf, email, password, group, status) 
       "Content-type": "application/json",
     },
     body: JSON.stringify({
-      nameUser: nameUser,
-      cpf: cpf,
-      email: email,
-      password: password,
-      group: group,
-      status: true
+      userName: nameUser,
+      userCpf: cpf,
+      userEmail: email,
+      userPassword: password,
+      userGroup: group,
     }),
   })
     .then(async (response) => {
@@ -26,7 +25,7 @@ export const ApiUserCad = async (nameUser, cpf, email, password, group, status) 
   return data;
 };
 
-export const ApiUserAlt = async (nameUser, cpf, password, group, status) => {
+export const apiUserAlt = async (nameUser, cpf, password, group, status) => {
   let data;
   const object = JSON.stringify({
     nameUser: nameUser,
@@ -53,7 +52,7 @@ export const ApiUserAlt = async (nameUser, cpf, password, group, status) => {
   return data;
 };
 
-export const ApiUserList = async () => {
+export const apiUserList = async () => {
   let data;
   const object = []
   await fetch(`${url}/backoffice/user/list`, {
@@ -74,7 +73,7 @@ export const ApiUserList = async () => {
 };
 
 
-export const ApiUserBackLogin = async (email, password) => {
+export const apiUserBackLogin = async (email, password) => {
   let data;
   const object = JSON.stringify({
     userEmail: email,
@@ -97,7 +96,7 @@ export const ApiUserBackLogin = async (email, password) => {
   return data;
 };
 
-export const ApiProdList = async () => {
+export const apiProdList = async () => {
   let data;
   const object = []
   await fetch(`${url}/backoffice/product/list`, {
@@ -117,7 +116,7 @@ export const ApiProdList = async () => {
   // Retornar apenas a lista
 };
 
-export const ApiCEPList = async (cep = '00000000') => {
+export const apiCEPList = async (cep = '00000000') => {
   let data;
 
   await fetch(`viacep.com.br/ws/${cep}/json/`, {
@@ -138,10 +137,10 @@ export const ApiCEPList = async (cep = '00000000') => {
   // Retornar apenas a lista
 };
 
-export const ApiUserStatus = async (cpf, statusUser) => {
+export const apiUserStatus = async (id, statusUser) => {
   let data;
   const object = JSON.stringify({
-    userCpf: cpf,
+    userId: id,
     userStatus: statusUser,
   })
   await fetch(`${url}/backoffice/user/update/status`, {
@@ -152,7 +151,7 @@ export const ApiUserStatus = async (cpf, statusUser) => {
     body: object,
   })
     .then(async (response) => {
-      data = await response.json();
+      data = await response.status;
     })
     .catch(async (error) => {
       console.log(object)
@@ -161,6 +160,29 @@ export const ApiUserStatus = async (cpf, statusUser) => {
   console.log(data);
   return data;
 };
+
+export const apiUserSearch = async (nameUser) =>{
+  let data;
+  const object = JSON.stringify({
+    userName: nameUser,
+  })
+  console.log(object)
+  await fetch(`${url}/backoffice/user/search`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: object,
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(error)
+    });
+  console.log(data);
+  return data;
+}
 
 export const apiCadProduct = async (object) => {
   console.log(object);
@@ -178,6 +200,7 @@ export const apiCadProduct = async (object) => {
       productImages: object.productImages
     })
   });
+
 
   return response.status;
 }

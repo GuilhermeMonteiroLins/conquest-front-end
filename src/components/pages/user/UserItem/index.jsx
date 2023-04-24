@@ -3,7 +3,7 @@ import { Toggle } from 'rsuite'
 import styles from './UserItem.module.scss'
 import 'rsuite/dist/rsuite.min.css'
 import { useRouter } from 'next/router'
-import { ApiUserStatus } from '@/services/api'
+import { apiUserStatus } from '@/services/api'
 
 export function UserItem({ user }) {
   const [toggleIsActive, setToggleIsActive] = useState(user.status)
@@ -11,7 +11,7 @@ export function UserItem({ user }) {
 
   useEffect(() => {
     const updateStatus = async () => {
-      const response = await ApiUserStatus(user.cpf, toggleIsActive)
+      const response = await apiUserStatus(user.cpf, toggleIsActive)
       setToggleIsActive(response.statusUser)
     }
     updateStatus()
