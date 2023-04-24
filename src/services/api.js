@@ -161,6 +161,29 @@ export const apiUserStatus = async (id, statusUser) => {
   return data;
 };
 
+export const apiUserSearch = async (nameUser) =>{
+  let data;
+  const object = JSON.stringify({
+    userName: nameUser,
+  })
+  console.log(object)
+  await fetch(`${url}/backoffice/user/search`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: object,
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(error)
+    });
+  console.log(data);
+  return data;
+}
+
 export const apiCadProduct = async (object) => {
   console.log(object);
   let response = await fetch(`${url}/backoffice/product/register`, {
