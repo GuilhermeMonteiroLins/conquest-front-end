@@ -14,7 +14,7 @@ export default function List() {
 
   const handleToggle = async (userId, userIsActive) => {
     if (userInfo.userId === userId) {
-      alert("Você não podo alterar o seu próprio usuário!!!")
+      alert("Você não pode alterar o seu próprio usuário!!!")
       return;
     }
     const response = await apiUserStatus(userId, userIsActive)

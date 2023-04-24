@@ -161,6 +161,29 @@ export const apiUserStatus = async (id, statusUser) => {
   return data;
 };
 
+export const apiProdStatus = async (productId, productStatus) => {
+  let data;
+  const object = JSON.stringify({
+    productId: productId,
+    productStatus: productStatus
+  })
+  await fetch(`${url}/backoffice/product/update/status`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: object,
+  })
+    .then(async (response) => {
+      data = await response.status;
+    })
+    .catch(async (error) => {
+      console.log(object)
+    });
+  console.log(data);
+  return data;
+};
+
 export const apiUserSearch = async (nameUser) =>{
   let data;
   const object = JSON.stringify({
@@ -168,6 +191,29 @@ export const apiUserSearch = async (nameUser) =>{
   })
   console.log(object)
   await fetch(`${url}/backoffice/user/search`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: object,
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(error)
+    });
+  console.log(data);
+  return data;
+}
+
+export const apiProdSearch = async (prod) =>{
+  let data;
+  const object = JSON.stringify({
+    productName: prod,
+  })
+  console.log(object)
+  await fetch(`${url}/backoffice/product/search`, {
     method: "POST",
     headers: {
       "Content-type": "application/json",
