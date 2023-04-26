@@ -98,6 +98,36 @@ export const apiUserBackLogin = async (email, password) => {
   return data;
 };
 
+export const apiProdUpdate = async (prodId, prodName, prodDesc, prodQtd, prodValue, prodReview, prodStatus, prodImages) => {
+  let data;
+  const object = JSON.stringify({
+    productId: prodId,
+    productName: prodName,
+    productDescription: prodDesc,
+    productQuantity: prodQtd,
+    productValue: prodValue,
+    productReview: prodReview,
+    productStatus: prodStatus,
+    productImages: prodImages
+  })
+  await fetch(`${url}/backoffice/product/update`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: object,
+  })
+    .then(async (response) => {
+      data = await response.status;
+    })
+    .catch(async (error) => {
+      console.log(object)
+    });
+  console.log(data);
+  return data;
+};
+
+
 export const apiProdList = async () => {
   let data;
   const object = []
@@ -186,7 +216,7 @@ export const apiProdStatus = async (productId, productStatus) => {
   return data;
 };
 
-export const apiUserSearch = async (nameUser) =>{
+export const apiUserSearch = async (nameUser) => {
   let data;
   const object = JSON.stringify({
     userName: nameUser,
@@ -209,7 +239,7 @@ export const apiUserSearch = async (nameUser) =>{
   return data;
 }
 
-export const apiProdSearch = async (prod) =>{
+export const apiProdSearch = async (prod) => {
   let data;
   const object = JSON.stringify({
     productName: prod,
@@ -248,6 +278,24 @@ export const apiUserData = async (userId) => {
     });
   return data;
 };
+
+export const apiProdVisualize = async (prodId) => {
+  let data;
+  await fetch(`${url}/backoffice/product/visualize?product_id=` + prodId, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    }
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      //data = await error.json();
+    });
+  return data;
+};
+
 
 export const apiCadProduct = async (object) => {
   console.log(object);
