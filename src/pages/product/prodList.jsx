@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import styles from '@/styles/pages/user/List.module.scss'
-import { apiProdList, apiProdSearch , apiProdStatus} from '@/services/api'
+import { apiProdList, apiProdSearch, apiProdStatus } from '@/services/api'
 import { useRouter } from "next/router"
 import { Toggle } from 'rsuite'
 import 'rsuite/dist/rsuite.min.css'
+import Toastifyconf from '@/util/ToastifyConfigs/toastifyConfig';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 import Pagination from '@/components/Pagination/Pagination'
 
 export default function List() {
@@ -42,11 +45,32 @@ export default function List() {
   const handleProdSearch = async () => {
     try {
       const prodSearchList = await apiProdSearch(prod)
-      setProdList(prodSearchList)
+      if (prodSearchList.length > 0) {
+        setProdList(prodSearchList)
+      } else {
+        Toastify(Toastifyconf.error).showToast();
+      }
       console.log(prodList)
     } catch (error) {
-      console.log(prodList)
+      Toastify(Toastifyconf.error).showToast();
     }
+  }
+
+  const handleAlteration = (prod, e) => {
+    e.preventDefault()
+    localStorage.setItem("idProduto", JSON.stringify(prod.productId))
+
+    Toastify({
+      text: "Indo para a próxima tela.",
+      duration: 1000,
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      stopOnFocus: true,
+    }).showToast();
+    router.push('/product/prodAlt')
   }
 
   useEffect(() => {
@@ -97,7 +121,7 @@ export default function List() {
                   <td> {prod.productValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} </td>
                   <td> <Toggle onChange={() => handleToggle(prod.productId, !prod.productStatus)} checked={prod.productStatus == true} /> </td>
                   <td>
-                    <button onClick={(e) => handleAlteration(user, e)}>
+                    <button onClick={(e) => handleAlteration(prod, e)}>
                       <img className={styles.imagem} src="/images/pen.png" />
                     </button>
                   </td>

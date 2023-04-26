@@ -51,7 +51,6 @@ export default function List() {
       console.log(userData)
     } catch (error) {
       Toastify(Toastifyconf.error).showToast();
-      console.log(error + "houve um erro")
     }
   }
 
@@ -61,7 +60,7 @@ export default function List() {
 
     Toastify({
       text: "Indo para a próxima tela.",
-      duration: 3000,
+      duration: 1000,
       newWindow: true,
       close: true,
       gravity: "top",
@@ -112,7 +111,7 @@ export default function List() {
                   <td> {user.userName} </td>
                   <td> {user.userCpf} </td>
                   <td> {user.userEmail} </td>
-                  <td> {user.userGroup === 1 ? 'Administrador' : user.group === 2 ? 'Estoquista' : 'Inativo/Sem Grupo'} </td>
+                  <td> {user.userGroup === 1 ? 'Administrador' : user.group === 2 ? 'Inativo/Sem Grupo' : 'Estoquista'} </td>
                   <td> <Toggle onChange={() => handleToggle(user.userId, !user.userStatus)} checked={user.userStatus == true} /> </td>
                   <td>
                     <button onClick={(e) => handleAlteration(user, e)}>

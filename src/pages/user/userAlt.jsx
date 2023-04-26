@@ -30,7 +30,6 @@ export default function Home() {
     setSenha2(userDados.userPassword)
     setGrupo(userDados.userGroup)
     setStatus(userDados.userStatus)
-    console.log("meu cpf:",cpf)
   }
 
   useEffect(() => {
@@ -89,24 +88,6 @@ export default function Home() {
     }
   }
 
-  /*
-  const checaBotaoStatus = () => {
-    const radioButtons = document.querySelectorAll('input[name="status"]');
-    let isRadioSelected = false;
-
-    radioButtons.forEach(function (button) {
-      if (button.checked) {
-        isRadioSelected = true;
-      }
-    });
-
-    if (!isRadioSelected) {
-      alert("Nenhum botão de status selecionado!!!");
-    }
-    return isRadioSelected;
-  };
-  */
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validadeFields()) {
@@ -116,6 +97,7 @@ export default function Home() {
     alert("Usuário alterado!");
   };
 
+  
   const validadeFields = () => {
     let isValidCPF = checaCPF(cpf);
     let isValidNome = checaNome(nome);
