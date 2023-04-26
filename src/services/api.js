@@ -25,14 +25,16 @@ export const apiUserCad = async (nameUser, cpf, email, password, group) => {
   return data;
 };
 
-export const apiUserAlt = async (nameUser, cpf, password, group, status) => {
+export const apiUserAlt = async (id, nome, cpf, email, senha, grupo, status) => {
   let data;
   const object = JSON.stringify({
-    nameUser: nameUser,
-    cpf: cpf,
-    password: password,
-    group: group,
-    status: status,
+    userId: id,
+    userName: nome,
+    userEmail: email,
+    userCpf: cpf,
+    userPassword: senha,
+    userGroup: grupo,
+    userStatus: status,
   })
   await fetch(`${url}/backoffice/user/update`, {
     method: "PUT",
@@ -229,6 +231,23 @@ export const apiProdSearch = async (prod) =>{
   console.log(data);
   return data;
 }
+
+export const apiUserData = async (userId) => {
+  let data;
+  await fetch(`${url}/backoffice/user?id_user=` + userId, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    }
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      //data = await error.json();
+    });
+  return data;
+};
 
 export const apiCadProduct = async (object) => {
   console.log(object);

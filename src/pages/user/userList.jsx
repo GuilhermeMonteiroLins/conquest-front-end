@@ -4,6 +4,9 @@ import { apiUserStatus, apiUserList, apiUserSearch } from "@/services/api";
 import { useRouter } from "next/router"
 import { Button } from '@/components/Button'
 import { Toggle } from 'rsuite'
+import Toastifyconf from '@/util/ToastifyConfigs/toastifyConfig';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 import 'rsuite/dist/rsuite.min.css'
 
 export default function List() {
@@ -39,16 +42,22 @@ export default function List() {
   const handleUserSearch = async () => {
     try {
       const userSearchList = await apiUserSearch(nome)
-      setUserData(userSearchList)
+      if (userSearchList.length > 0){
+        setUserData(userSearchList)
+      } else {
+        Toastify(Toastifyconf.error).showToast();
+      }
+      
       console.log(userData)
     } catch (error) {
-      console.log(error)
+      Toastify(Toastifyconf.error).showToast();
+      console.log(error + "houve um erro")
     }
   }
 
   const handleAlteration = (user, e) => {
     e.preventDefault()
-    localStorage.setItem("alterationUser", JSON.stringify(user))
+    localStorage.setItem("idUsuario", JSON.stringify(user.userId))
 
     Toastify({
       text: "Indo para a próxima tela.",
