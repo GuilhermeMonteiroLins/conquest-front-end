@@ -74,6 +74,81 @@ export const apiUserList = async () => {
   // Retornar apenas a lista
 };
 
+export const apiCustomerLogin = async (email, password) => {
+  let data
+  const object = JSON.stringify({
+    userEmail: email,
+    userPassword: password
+  })
+  await fetch(`${url}/customer/logincustomer`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: object
+  })
+    .then(async response => {
+      data = await response.json()
+    })
+    .catch(async error => {
+      console.log(object)
+      //data = await error.json();
+    })
+  return data
+}
+
+export const apiCustomerCad = async (
+  nome,
+  cpf,
+  email,
+  senha,
+  cep,
+  logradouro,
+  bairro,
+  localidade,
+  uf,
+  complemento,
+  numero,
+  genero,
+  dataAniver
+) => {
+  let data
+  await fetch(`${url}/customer/register`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      userName: nome,
+      userCpf: cpf,
+      userEmail: email,
+      userPassword: senha,
+      userGender: genero,
+      userBirthDate: dataAniver,
+      userAdress: [
+        {
+          cep: cep,
+          logradouro: logradouro,
+          bairro: bairro,
+          localidade: localidade,
+          uf: uf,
+          complemento: complemento,
+          numero: numero,
+          isAdressCustomer: true,
+        }
+      ]
+    })
+  })
+    .then(async response => {
+      data = await response.json()
+    })
+    .catch(async error => {
+      data = await error.json()
+    })
+  console.log(data)
+  return data
+}
+
 
 export const apiUserBackLogin = async (email, password) => {
   let data;
@@ -148,26 +223,27 @@ export const apiProdList = async () => {
   // Retornar apenas a lista
 };
 
-export const apiCEPList = async (cep = '00000000') => {
-  let data;
 
-  await fetch(`viacep.com.br/ws/${cep}/json/`, {
-    method: "GET",
+export const apiCEPList = async cep => {
+  let data
+
+  await fetch(`https://viacep.com.br/ws/${cep}/json/`, {
+    method: 'GET',
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json'
     }
   })
-    .then(async (response) => {
-      data = await response.json();
+    .then(async response => {
+      data = await response.json()
       console.log(data)
     })
-    .catch(async (error) => {
-      console.log(object)
+    .catch(async error => {
+      console.log(error)
       //data = await error.json();
-    });
-  return data;
+    })
+  return data
   // Retornar apenas a lista
-};
+}
 
 export const apiUserStatus = async (id, statusUser) => {
   let data;
