@@ -125,7 +125,7 @@ export const apiCustomerCad = async (
       userPassword: senha,
       userGender: genero,
       userBirthDate: dataAniver,
-      userAdress: [
+      userAddress: [
         {
           cep: cep,
           logradouro: logradouro,
@@ -134,7 +134,7 @@ export const apiCustomerCad = async (
           uf: uf,
           complemento: complemento,
           numero: numero,
-          adressCustomer: true
+          addressCustomer: true
         }
       ]
     })
