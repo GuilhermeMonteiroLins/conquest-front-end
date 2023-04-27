@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import styles from "@/styles/pages/ecommerce/home/Home.module.scss"
+import styles from "@/styles/pages/Index.module.scss"
 
 const Home = (props) => {
 

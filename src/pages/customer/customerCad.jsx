@@ -253,7 +253,7 @@ export default function UserCad() {
                 placeholder="Digite seu bairro"
                 label="bairro:"
                 maxLength="40"
-                // disabled
+                disabled
               />
               <Input
                 value={localidade}
@@ -261,7 +261,7 @@ export default function UserCad() {
                 type="text"
                 placeholder="Digite sua localidade"
                 label="localidade:"
-                //disabled
+                disabled
               />
               <Input
                 value={uf}
@@ -269,7 +269,7 @@ export default function UserCad() {
                 type="text"
                 placeholder="Digite sua uf"
                 label="Digite seu uf:"
-                // disabled
+                disabled
               />
               <Input
                 value={complemento}

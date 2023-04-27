@@ -26,7 +26,7 @@ export default function Login() {
      
       localStorage.setItem("userData", JSON.stringify(autenticate))
       console.log(JSON.parse(localStorage.getItem("userData")))
-      router.push("/home")
+      router.push("/")
     }
 
   }

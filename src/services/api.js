@@ -134,7 +134,7 @@ export const apiCustomerCad = async (
           uf: uf,
           complemento: complemento,
           numero: numero,
-          isAdressCustomer: true,
+          adressCustomer: true
         }
       ]
     })
