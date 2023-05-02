@@ -1,10 +1,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { listAllProducts } from "@/services/api";
 import styles from "@/styles/pages/Index.module.scss"
 
 const Home = (props) => {
-
+    const [products, setProducts] = useState([])
     const obj = { nome: 'sifoda', link: 'https://s3.amazonaws.com/media.wikiaves.com.br/images/1602/2061018_6590cfefff108e8b17f5fa805c297a56.jpg'}
+
+    useEffect(() => {
+        let fetchData = async () => {
+            const data = await listAllProducts()
+            setProducts(data)
+        }
+        fetchData()
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -29,65 +38,17 @@ const Home = (props) => {
                 </div>
             </header>
             <main>
-            <div className={styles.produto}>
-                    <img src="./../images/image-2.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src={'https://s3.amazonaws.com/media.wikiaves.com.br/images/1602/2061018_6590cfefff108e8b17f5fa805c297a56.jpg'} alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src="./../images/image-1.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src="./../images/image-4.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src="./../images/image-1.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src={obj.link} alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto} onClick={(e) => window.alert('teste!')}>
-                    <img src={'https://site-antigo.socioambiental.org/sites/blog.socioambiental.org/files/styles/twitter-card/public/blogs/galinha_rosa.jpg?itok=8C9EICkw'} alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
+                {console.log(products[products.length -1])}
+                {products.map(product => {
+                    return(
+                        <div className={styles.produto} onClick={(e) => window.alert('teste!')}>
+                            <img src={ product.productImages != null ? product.productImages.length > 0 ? product.productImages[0].imageBase64 : './../images/noimage.png' : undefined} alt={product.productDescription} />
+                            <span><strong>Nome: </strong>{product.productName}</span> <br/>
+                            <span><strong>Review: </strong>{product.productReview}</span> <br/>
+                            <span><strong>Valor: </strong>{product.productValue.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span>
+                        </div>
+                    )
+                })}
             </main>
         </div>
     )

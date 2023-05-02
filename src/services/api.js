@@ -394,3 +394,15 @@ export const apiCadProduct = async (object) => {
   return response.status;
 }
 
+export const listAllProducts = async () => {
+  let data
+  await fetch(`${url}/backoffice/product`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json"
+    }
+  })
+  .then(response => data = response.json())
+  .catch(error => console.log(error))
+  return data;
+}
