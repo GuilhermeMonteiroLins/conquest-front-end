@@ -16,7 +16,6 @@ export default function Login() {
     e.preventDefault()
    
     let autenticate = await apiCustomerLogin(email, senha)
-    console.log("Mostrando o teste", autenticate)
     if (autenticate.userId == 0) {
       Toastify(toastifyConfig.error).showToast()
     } else {

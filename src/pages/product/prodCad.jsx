@@ -93,13 +93,17 @@ export default function ProdCad() {
               placeholder="Nome do item"
               label="Titulo do Produto:"
               required
+              maxLength="200"
             />
             <div className={styles.smallInputs}>
               <Input
                 name="productValue"
                 value={form.productValue || ''}
                 onChange={handleInputChange}
-                type="decimal"
+                type="number"
+                min="0.00"
+                step="0.01"
+                presicion={2}
                 placeholder="Valor do Produto"
                 label="Valor:"
                 required
@@ -110,13 +114,18 @@ export default function ProdCad() {
                 onChange={handleInputChange}
                 type="number"
                 placeholder="Disponibilidade de estoque"
+                min="0"
                 label="Estoque:"
                 required />
               <Input
                 name="productReview"
                 value={form.productReview || ''}
                 onChange={handleInputChange}
-                type="text"
+                id="number-input"
+                max="5"
+                min="0"
+                step="0.5"
+                type="number"
                 placeholder="Avalição do item"
                 label="Avalição:"
                 required
@@ -130,6 +139,7 @@ export default function ProdCad() {
                 type="text"
                 placeholder="Descrição do produto"
                 label="Descrição:"
+                maxLength="2000"
                 required
               />
             </div>
