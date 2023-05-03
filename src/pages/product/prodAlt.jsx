@@ -1,82 +1,122 @@
 import styles from '@/styles/pages/product/ProdCad.module.scss'
 import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import { apiProdUpdate, apiProdVisualize } from '@/services/api'
+import { useEffect, useState } from 'react';
 
 export default function ProdCad() {
-  // const [] = useState('')
-  // const [] = useState('')
-  // const [] = useState('')
-  // const [] = useState('')
-  // const [] = useState('')
-  // const [] = useState('')
+  const [prodId, setProdId] = useState('');
+  const [prodName, setProdName] = useState('');
+  const [prodDesc, setProdDesc] = useState('');
+  const [prodQtd, setProdQtd] = useState('');
+  const [prodValue, setProdValue] = useState('');
+  const [prodReview, setProdReview] = useState('');
+  const [prodStatus, setProdStatus] = useState('');
+  const [prodImages, setProdImages] = useState([]);
   const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!validadeFields()){
-      return alert("Campo inválido.")
-    }
-    const payload = {
-      
-    }
-    alert("Produto Cadastrado!")
-    router.push("/product/list")
-    console.log(JSON.stringify(payload))
+    console.log("está entrando na funcao")
+    let data = apiProdUpdate(prodId, prodName, prodDesc, prodQtd, prodValue, prodReview, prodStatus, prodImages)
+    console.log("essa é a minha", data)
+    alert("Produto Alterado!")
   }
 
-  return(
+  const fetchProdData = async () => {
+    const prodDados = await apiProdVisualize(JSON.parse(localStorage.getItem('idProduto')))
+
+    setProdId(prodDados.productId);
+    setProdName(prodDados.productName);
+    setProdDesc(prodDados.productDescription);
+    setProdQtd(prodDados.productQuantity);
+    setProdValue(prodDados.productValue);
+    setProdReview(prodDados.productReview);
+    setProdStatus(prodDados.productStatus);
+    setProdImages(prodDados.productImages);
+  }
+
+  useEffect(() => {
+    fetchProdData()
+  }, [])
+
+  return (
     <div className={styles.page}>
-      <button>Voltar</button>
+      <button onClick={() => router.push("/product/prodList")} type="button">Voltar</button>
       <h1>Alteração de produtos</h1>
-          <div className={styles.container}>
-            <div className={styles.content}>
-            <Input type="file" accept="image/png, image/jpeg"/>
-            <Input 
-            value={null}
-            onChange={(e) => setNome(e.target.value)}
-            type="text"
-            placeholder="Nome do item"
-            label="Item:"/>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
+            <Input
+              value={prodImages}
+              onChange={(e) => setProdImages(e.target.value)}
+              type="file"
+              accept="image/png, image/jpeg" />
+            <Input
+              value={prodName}
+              onChange={(e) => setProdName(e.target.value)}
+              type="text"
+              placeholder="Nome do item"
+              label="Item:"
+              maxLength="400"
+              required
+            />
             <div className={styles.smallInputs}>
-              <Input 
-              value={null}
-              onChange={(e) => setValor(e.target.value)}
-              type="number"
-              placeholder="Valor do item"
-              label="Valor:"/>
-              <Input 
-              value={null}
-              onChange={(e) => setEstoque(e.target.value)}
-              type="text"
-              placeholder="Disponibilidade de estoque"
-              label="Estoque:"/>
-              <Input 
-              value={null}
-              onChange={(e) => setAvalicao(e.target.value)}
-              type="text"
-              placeholder="Avalição do item"
-              label="Avalição:"/>
+              <Input
+                value={prodValue}
+                onChange={(e) => setProdValue(e.target.value)}
+                type="number"
+                placeholder="Valor do item"
+                label="Valor:"
+                required />
+              <Input
+                value={prodQtd}
+                onChange={(e) => setProdQtd(e.target.value)}
+                type="text"
+                placeholder="Disponibilidade de estoque"
+                label="Estoque:"
+                required />
+              <Input
+                value={prodReview}
+                onChange={(e) => setProdReview(e.target.value)}
+                type="text"
+                placeholder="Avalição do item"
+                label="Avalição:"
+                required />
             </div>
             <div className={styles.descript}>
-              <Input 
-              value={null}
-              onChange={(e) => setDescricao(e.target.value)}
-              type="text"
-              placeholder="Descrição do produto"
-              label="Descrição:"/>
+              <Input
+                value={prodDesc}
+                onChange={(e) => setProdDesc(e.target.value)}
+                type="text"
+                placeholder="Descrição do produto"
+                label="Descrição:"
+                required />
             </div>
-          </div>
-          
-          <div className={styles.buttons}>
-          <Button type="reset" color="cancel">
-              Cancelar
-            </Button>
-            <Button type="submit" color="primary" onClick={null}>
-              Salvar
-            </Button>
-          </div>
+
+            <div className={styles.buttons}>
+              <Button
+                type="reset"
+                color="cancel"
+                onClick={() => {
+                  setProdImages('');
+                  setProdName('');;
+                  setProdValue('');
+                  setProdQtd('');
+                  setProdReview('');;
+                  setProdDesc('');;
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit" color="primary">
+                Salvar
+              </Button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
   )
 }

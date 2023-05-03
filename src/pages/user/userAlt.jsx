@@ -1,21 +1,40 @@
 /* eslint-disable react/jsx-boolean-value */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@/styles/pages/user/UserCad.module.scss";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import validarCPF from "@/util/validarCPF";
 import validarNome from "@/util/validarNome";
-import { apiUserAlt } from "@/services/api";
+import { apiUserAlt, apiUserData } from "@/services/api";
 
 export default function Home() {
+  const [id, setId] = useState ("");
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
+  const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [senha2, setSenha2] = useState("");
   const [grupo, setGrupo] = useState("");
   const [status, setStatus] = useState("");
   const router = useRouter();
+
+
+  const fetchUserData = async () => {
+    const userDados = await apiUserData(JSON.parse(localStorage.getItem('idUsuario')))
+    setId(userDados.userId)
+    setNome(userDados.userName)
+    setCpf(userDados.userCpf)
+    setEmail(userDados.userEmail)
+    setSenha(userDados.userPassword)
+    setSenha2(userDados.userPassword)
+    setGrupo(userDados.userGroup)
+    setStatus(userDados.userStatus)
+  }
+
+  useEffect(() => {
+    fetchUserData()
+  }, [])
 
   const checaNome = (nome) => {
     if (validarNome(nome) == false) {
@@ -41,17 +60,6 @@ export default function Home() {
     }
   };
 
-  const checaSenha = (senha, senha2) => {
-    if (senha !== senha2) {
-      alert("Senha Inválida!!!");
-      setSenha("");
-      setSenha2("");
-      return false;
-    } else {
-      return true;
-    }
-  };
-
   const checaBotaoGrupo = () => {
     const radioButtons = document.querySelectorAll('input[name="grupo"]');
     let isRadioSelected = false;
@@ -68,45 +76,39 @@ export default function Home() {
     return isRadioSelected;
   };
 
-  const checaBotaoStatus = () => {
-    const radioButtons = document.querySelectorAll('input[name="status"]');
-    let isRadioSelected = false;
 
-    radioButtons.forEach(function (button) {
-      if (button.checked) {
-        isRadioSelected = true;
-      }
-    });
-
-    if (!isRadioSelected) {
-      alert("Nenhum botão de status selecionado!!!");
+  const checaSenha = (senha, senha2) => {
+    if (senha !== senha2) {
+      alert("Senha Inválida!!!")
+      setSenha('')
+      setSenha2('')
+      return false
+    } else {
+      return true
     }
-    return isRadioSelected;
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validadeFields()) {
       return alert("Campo inválido.");
     }
-    let data = apiUserAlt(nome, cpf, senha, grupo, status);
-    console.log(data);
+    let data = apiUserAlt(id, nome, cpf, email, senha, grupo, status);
     alert("Usuário alterado!");
   };
 
+  
   const validadeFields = () => {
     let isValidCPF = checaCPF(cpf);
     let isValidNome = checaNome(nome);
     let isValidSenha = checaSenha(senha, senha2);
     let idCheckedBotaoGrupo = checaBotaoGrupo();
-    let idCheckedBotaoStatus = checaBotaoStatus();
 
     if (
       isValidNome &&
       isValidCPF &&
       isValidSenha &&
-      idCheckedBotaoGrupo &&
-      idCheckedBotaoStatus
+      idCheckedBotaoGrupo
     ) {
       return true;
     }
@@ -159,14 +161,16 @@ export default function Home() {
               onChange={() => setGrupo(1)}
               type="radio"
               name="grupo"
-              value={1}
+              value={grupo}
+             checked={grupo === 1}
             />
             Administrador
             <input
               onChange={() => setGrupo(2)}
               type="radio"
               name="grupo"
-              value={2}
+              value={grupo}
+              checked={grupo === 2}
             />
             Estoquista
             <br />
@@ -176,12 +180,10 @@ export default function Home() {
                 color="cancel"
                 onClick={() => {
                   setNome('');
-                  setCpf('');
-                  setEmail('');
+                  setCpf('');;
                   setGrupo('');
                   setSenha('');
-                  setSenha2('');
-                  setStatus('');
+                  setSenha2('');;
                 }}
               >
                 Cancelar
