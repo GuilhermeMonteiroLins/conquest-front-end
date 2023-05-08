@@ -110,11 +110,11 @@ export default function ProdCad() {
                 color="cancel"
                 onClick={() => {
                   setProdImages('');
-                  setProdName('');;
+                  setProdName('');
                   setProdValue('');
                   setProdQtd('');
-                  setProdReview('');;
-                  setProdDesc('');;
+                  setProdReview('');
+                  setProdDesc('');
                 }}
               >
                 Cancelar

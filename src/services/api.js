@@ -204,7 +204,7 @@ export const apiProdUpdate = async (prodId, prodName, prodDesc, prodQtd, prodVal
 
 
 export const apiProdList = async () => {
-  let data;
+  let data = [];
   const object = []
   await fetch(`${url}/backoffice/product/list`, {
     method: "GET",
