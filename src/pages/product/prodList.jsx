@@ -10,6 +10,7 @@ import 'toastify-js/src/toastify.css';
 import Pagination from '@/components/Pagination/Pagination'
 
 export default function List() {
+  const [userInfo, setUserInfo] = useState()
   const [prodList, setProdList] = useState([])
   const [prod, setProd] = useState('')
   const router = useRouter()
@@ -76,12 +77,14 @@ export default function List() {
   useEffect(() => {
     setCurrentPage(0)
     fetchProdList()
+    setUserInfo(JSON.parse(localStorage.getItem('userData')))
   }, [])
 
   return (
     <>
       <div className={styles.tittle}>
         <button onClick={() => router.push("/home")} type="button">Voltar</button>
+        <span>Seja bem-vindo {userInfo?.userEmail} </span>
         <h1>Lista de produtos</h1>
       </div>
       <div className={styles.container}>
