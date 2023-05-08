@@ -4,7 +4,6 @@ export default function Home(props) {
     const containerStyles = {
         width: props.width + 'px',
         height: props.heigth + 'px',
-        display: "flex",
         margin: "0 auto",
     }
 

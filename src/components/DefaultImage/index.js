@@ -10,8 +10,7 @@ const DefaultImage = (props) => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         marginRight: '10px',
-        border: 'solid red 2px',
-        backgroundImage: `url(${props.image.url})`
+        backgroundImage: `url(${props.image.imageBase64})`
     }
 
     return <div style={divStyles}> </div>

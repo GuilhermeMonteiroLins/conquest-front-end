@@ -396,7 +396,7 @@ export const apiCadProduct = async (object) => {
 
 export const listAllProducts = async () => {
   let data
-  await fetch(`${url}/backoffice/product`, {
+  await fetch(`${url}/product`, {
     method: "GET",
     headers: {
       "Content-type": "application/json"
@@ -406,3 +406,22 @@ export const listAllProducts = async () => {
   .catch(error => console.log(error))
   return data;
 }
+
+export const listAllProductsBySearch = async (searchString) => {
+  try {
+    const response = await fetch(`${url}/product/search`, {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        productName: searchString,
+      })
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
