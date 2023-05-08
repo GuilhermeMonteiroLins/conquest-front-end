@@ -58,29 +58,37 @@ export default function ProdCad() {
               onChange={(e) => setProdName(e.target.value)}
               type="text"
               placeholder="Nome do item"
-              label="Item:"
-              maxLength="400"
+              label="Titulo do Produto:"
               required
+              maxLength="200"
             />
             <div className={styles.smallInputs}>
               <Input
                 value={prodValue}
                 onChange={(e) => setProdValue(e.target.value)}
                 type="number"
-                placeholder="Valor do item"
+                min="0.00"
+                step="0.01"
+                presicion={2}
+                placeholder="Valor do Produto"
                 label="Valor:"
                 required />
               <Input
                 value={prodQtd}
                 onChange={(e) => setProdQtd(e.target.value)}
-                type="text"
+                type="number"
                 placeholder="Disponibilidade de estoque"
+                min="0"
                 label="Estoque:"
                 required />
               <Input
                 value={prodReview}
                 onChange={(e) => setProdReview(e.target.value)}
-                type="text"
+                id="number-input"
+                max="5"
+                min="0"
+                step="0.5"
+                type="number"
                 placeholder="Avalição do item"
                 label="Avalição:"
                 required />
@@ -92,6 +100,7 @@ export default function ProdCad() {
                 type="text"
                 placeholder="Descrição do produto"
                 label="Descrição:"
+                maxLength="2000"
                 required />
             </div>
 

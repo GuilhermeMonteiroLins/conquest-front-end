@@ -21,6 +21,13 @@ const toastifyConfig = {
         position: "center",
         backgroundColor: "linear-gradient(to right, #f6d365, #fda085)",
     },
+    Denied: {
+        text: "Você não possui permissão para tal ação! ⛔",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #f6d365, #fda085)",
+    },
 };
 
 export default toastifyConfig; 

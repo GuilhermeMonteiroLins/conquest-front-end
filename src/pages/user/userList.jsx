@@ -12,10 +12,11 @@ import 'rsuite/dist/rsuite.min.css'
 export default function List() {
   const [userData, setUserData] = useState([])
   const [nome, setNome] = useState('')
-  const userInfo = JSON.parse(localStorage.getItem('userData'))
+  const [userInfo, setUserInfo] = useState()
   const router = useRouter()
 
   const handleToggle = async (userId, userIsActive) => {
+    console.log("Meu user Info: " , userInfo)
     if (userInfo.userId === userId) {
       alert("Você não pode alterar o seu próprio usuário!!!")
       return;
@@ -37,17 +38,18 @@ export default function List() {
 
   useEffect(() => {
     fetchUserList()
+    setUserInfo(JSON.parse(localStorage.getItem('userData')))
   }, [])
 
   const handleUserSearch = async () => {
     try {
       const userSearchList = await apiUserSearch(nome)
-      if (userSearchList.length > 0){
+      if (userSearchList.length > 0) {
         setUserData(userSearchList)
       } else {
         Toastify(Toastifyconf.error).showToast();
       }
-      
+
       console.log(userData)
     } catch (error) {
       Toastify(Toastifyconf.error).showToast();
@@ -71,11 +73,10 @@ export default function List() {
     router.push('/user/userAlt')
   }
 
-
   return (
     <>
       <div className={styles.tittle}>
-        <span>Seja bem-vindo {JSON.parse(localStorage.getItem("userData")).email}</span>
+        <span>Seja bem-vindo {userInfo?.userEmail} </span>
         <Button className={styles.back} onClick={() => router.push("/home")} type="button">Voltar</Button>
         <h1>Lista de usuários</h1>
       </div>

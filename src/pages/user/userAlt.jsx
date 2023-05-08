@@ -9,7 +9,7 @@ import validarNome from "@/util/validarNome";
 import { apiUserAlt, apiUserData } from "@/services/api";
 
 export default function Home() {
-  const [id, setId] = useState ("");
+  const [id, setId] = useState("");
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
@@ -97,7 +97,7 @@ export default function Home() {
     alert("Usuário alterado!");
   };
 
-  
+
   const validadeFields = () => {
     let isValidCPF = checaCPF(cpf);
     let isValidNome = checaNome(nome);
@@ -162,7 +162,7 @@ export default function Home() {
               type="radio"
               name="grupo"
               value={grupo}
-             checked={grupo === 1}
+              checked={grupo === 1}
             />
             Administrador
             <input
