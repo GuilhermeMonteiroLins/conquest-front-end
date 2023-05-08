@@ -1,96 +1,90 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import Head from 'next/head';
+import { listAllProducts, listAllProductsBySearch } from "@/services/api";
 import styles from "@/styles/pages/Index.module.scss"
+import { useRouter } from 'next/router'
 
 const Home = (props) => {
+    const [products, setProducts] = useState([])
+    const [search, setSearch] = useState('')
+    const [messageProduct, setMessageProduct] = useState('')
+    const [isLoginOrRegisterHovered, setIsLoginOrRegisterHovered] = useState(false);
+    const router = useRouter()
 
-    const obj = { nome: 'sifoda', link: 'https://s3.amazonaws.com/media.wikiaves.com.br/images/1602/2061018_6590cfefff108e8b17f5fa805c297a56.jpg'}
+    const handleSearch = async () => {
+        if(search !== '' && search !== null && search !== undefined) {
+            const products = await listAllProductsBySearch(search)
+            setMessageProduct(`Exibindo ${products.length} resultados para "${search}"`)
+            setProducts(products)
+        } else {
+            window.alert("Pesquise por algo!")
+        }
+    }
+
+    const handleGoToProductDetail = (product) => {
+        localStorage.setItem("currentProduct", JSON.stringify(product))
+        router.push("/product/prodDetail")
+    }
+
+    const handleLoginOrRegisterHover = (e) => {
+        setIsLoginOrRegisterHovered(e.type === "mouseover");
+    }
+
+    useEffect(() => {
+        let fetchData = async () => {
+            const data = await listAllProducts()
+            setProducts(data)
+        }
+        fetchData()
+    }, [])
 
     return (
         <div className={styles.container}>
-            <header>
-                <img 
-                    src="./../../images/logo.png" 
-                    alt="logotipo conquest"
-                    className={styles.logo}
-                />
-                <div>
-                    <input type="text" placeholder="Procure por um produto!"/>
-                    <button>🔎</button>
-                    <button>🛒</button>
+            <Head>
+                <title>Página Principal</title>
+                <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png"></link>
+            </Head>
+            <header className={styles.headerIndex}>
+                <div className={styles.logo} onClick={(e) => router.reload()}>
                 </div>
-                <div>
-                    <span>Logado/deslogado logar</span>
-                    <img 
-                        src="./../images/usericon.png" 
-                        alt="" 
-                        className={styles.logarlogo} 
-                    />
-                </div>
+                <ul>
+                    <li>
+                        <div className={styles.input}>
+                            <input
+                                type="text"
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Pesquise por algo:"
+                            />
+                            <button onClick={(e) => handleSearch()}>🔎</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div className={styles.cart}>
+                            <button>🛒Carrinho</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div className={styles.login}>
+                            Login/Cadastrar
+                        </div>
+                    </li>
+                </ul>
             </header>
+            <span style={{color: '#FFF'}}>{messageProduct}</span>
             <main>
-            <div className={styles.produto}>
-                    <img src="./../images/image-2.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src={'https://s3.amazonaws.com/media.wikiaves.com.br/images/1602/2061018_6590cfefff108e8b17f5fa805c297a56.jpg'} alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src="./../images/image-1.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src="./../images/image-4.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src="./../images/image-1.jpg" alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}>
-                    <img src={obj.link} alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto} onClick={(e) => window.alert('teste!')}>
-                    <img src={'https://site-antigo.socioambiental.org/sites/blog.socioambiental.org/files/styles/twitter-card/public/blogs/galinha_rosa.jpg?itok=8C9EICkw'} alt="Imagem do produto" />
-                    <span><strong>Nome:</strong>{'Montanhas Rochosas'}</span> <br/>
-                    <span><strong>Review:</strong>{'4.5/10'}</span> <br/>
-                    <span><strong>Valor:</strong>{'R$ 5000,90'}</span>
-                </div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
-                <div className={styles.produto}></div>
+                {products.map(product => {
+                    return(
+                        <div key={product.id} className={styles.produto} onClick={(e) => handleGoToProductDetail(product)}>
+                            <img src={ product.productImages != null ? product.productImages.length > 0 ? product.productImages[0].imageBase64 : './../images/noimage.png' : './../images/noimage.png'} alt={product.productDescription} />
+                            <span><strong>Nome: </strong>{product.productName}</span> <br/>
+                            <span><strong>Review: </strong>{product.productReview}</span> <br/>
+                            <span><strong>Valor: </strong>{product.productValue.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span>
+                        </div>
+                    )
+                })}
             </main>
         </div>
     )
 }
-
 export default Home;

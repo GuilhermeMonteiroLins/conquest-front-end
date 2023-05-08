@@ -14,7 +14,7 @@ const ImageSlider = ({ slides }) => {
         borderRadius: '10px',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        backgroundImage: `url(${slides[currentIndex].url})`,
+        backgroundImage: `url(${slides[currentIndex].imageBase64})`,
     };
 
     const leftArrowStyles = {
@@ -81,7 +81,7 @@ const ImageSlider = ({ slides }) => {
                 {slides.map((slide, slideIndex) => (
                     <div 
                         key={slideIndex} 
-                        style={{...miniImageStyles, backgroundImage: `url(${slides[slideIndex].url})`}} 
+                        style={{...miniImageStyles, backgroundImage: `url(${slides[slideIndex].imageBase64})`}} 
                         onClick={() => goToSlide(slideIndex)}
                     >
                         &nbsp;&nbsp;

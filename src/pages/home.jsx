@@ -8,8 +8,9 @@ import toastifyConfig from '@/util/ToastifyConfigs/toastifyConfig';
 
 export default function Home() {
 
-  const [userInfo, setUserInfo] = useState()
+  const [userInfo, setUserInfo] = useState();
   const router = useRouter()
+
   const getOut = (router) => {
     localStorage.clear()
     router.push("/login")
