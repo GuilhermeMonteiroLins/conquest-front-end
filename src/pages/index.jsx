@@ -64,10 +64,20 @@ const Home = (props) => {
                             <button>🛒Carrinho</button>
                         </div>
                     </li>
-                    <li>
-                        <div className={styles.login}>
+                    <li 
+                        onMouseEnter={() => setIsLoginOrRegisterHovered(true)}
+                        onMouseLeave={() => setIsLoginOrRegisterHovered(false)}>
+                        <div 
+                            className={styles.login}>
                             Login/Cadastrar
                         </div>
+
+                        {isLoginOrRegisterHovered && 
+                            (<div className="popup">
+                                <button onClick={(e) => {router.push("/loginCustomer")}}> Logar </button>
+                                <button onClick={(e) => {router.push("/customer/customerCad")}}> Criar Conta </button>
+                            </div>)
+                        }
                     </li>
                 </ul>
             </header>

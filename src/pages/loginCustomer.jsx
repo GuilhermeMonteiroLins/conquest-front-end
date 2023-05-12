@@ -32,7 +32,7 @@ export default function Login() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>
+      <div className={styles.logo} style={{cursor:"pointer"}}onClick={() => router.push("/")}>
         <img src="images/logo.png" alt="logotipo conquest" />
       </div>
       <form className={styles.form}>

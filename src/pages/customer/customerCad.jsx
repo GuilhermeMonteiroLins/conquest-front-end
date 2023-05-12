@@ -138,7 +138,7 @@ export default function UserCad() {
     <div className={styles.container}>
       <div className={styles.tittle}>
         <button
-          onClick={() => router.push('/customer/customerList')}
+          onClick={() => router.push('/')}
           type="button"
         >
           Voltar

@@ -3,9 +3,10 @@ import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
 import { useRouter } from "next/router";
 import { apiProdUpdate, apiProdVisualize } from '@/services/api'
+import ImageList from '@/components/ImageList';
 import { useEffect, useState } from 'react';
 
-export default function ProdCad() {
+export default function ProdAlt() {
   const [prodId, setProdId] = useState('');
   const [prodName, setProdName] = useState('');
   const [prodDesc, setProdDesc] = useState('');
@@ -16,17 +17,43 @@ export default function ProdCad() {
   const [prodImages, setProdImages] = useState([]);
   const router = useRouter()
 
+  const handleRemoveImage = (index) => {
+    const newImages = [...prodImages];
+    newImages.splice(index, 1);
+    setProdImages(newImages)
+  }
+
+  const handleFileChange = (event) => {
+    event.preventDefault();
+    const files = event.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[i]);
+      let listImages = images;
+      reader.onload = async () => {
+        let data = await reader.result;
+        listImages.push({ "imageBase64": data });
+      }
+      setProdImages(listImages);
+
+      reader.onerror = async (error) => {
+        throw Error("Error to covert image to base64" + error)
+      }
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log("está entrando na funcao")
     let data = apiProdUpdate(prodId, prodName, prodDesc, prodQtd, prodValue, prodReview, prodStatus, prodImages)
-    console.log("essa é a minha", data)
+    console.log("essa é a minha", data) 
     alert("Produto Alterado!")
   }
 
   const fetchProdData = async () => {
     const prodDados = await apiProdVisualize(JSON.parse(localStorage.getItem('idProduto')))
-
+    console.log(prodDados)
     setProdId(prodDados.productId);
     setProdName(prodDados.productName);
     setProdDesc(prodDados.productDescription);
@@ -49,10 +76,17 @@ export default function ProdCad() {
         <div className={styles.content}>
           <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
             <Input
-              value={prodImages}
-              onChange={(e) => setProdImages(e.target.value)}
+              // value={prodImages}
+              onChange={handleFileChange}
               type="file"
               accept="image/png, image/jpeg" />
+              
+              <div className={styles.img}>
+                <ImageList
+                  images={prodImages}
+                  onRemoveImage={handleRemoveImage}
+                />
+              </div>
             <Input
               value={prodName}
               onChange={(e) => setProdName(e.target.value)}
