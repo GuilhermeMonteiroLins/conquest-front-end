@@ -1,0 +1,189 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+
+    main {
+        background-color: #111219;
+        height: 90vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .telaLogin {
+            height: 70vh;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px;
+            border-radius: 30px;
+            background-color: #1B1C29;
+            h1{
+                font-weight: bolder;
+            }
+        }
+    }
+}
+
+.userIcon {
+    background-color: #F5F5F5;
+    height: 195px;
+    width: 195px;
+    border-radius: 200%;
+
+    img {
+        height: 200px;
+        width: 200px;
+    }
+
+}
+
+.userInput {
+    display: flex;
+    height: 40px;
+    width: 360px;
+    background-color: white;
+    border-radius: 10px;
+
+    input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: black;
+        height: 100%;
+        width: 100%;
+        padding: 10px;
+        background-clip: content-box;
+    }
+
+    input::placeholder {
+        text-align: center;
+        font-weight: 400;
+        color: black;
+        caret-color: black;
+    }
+}
+
+.userButtons{
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+    .cancelar{
+        background-color: #FD6D70;
+        height: 40px;
+        width: 160px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+    }
+    .entrar{
+        background-color: #06E3B4;
+        height: 40px;
+        width: 160px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        
+    }
+}
+
+.headerIndex {
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    background-color: #1A1C29;
+    box-shadow: 0 0 1rem black;
+
+    align-items: center;
+
+    .logo {
+        margin-left: 5px;
+        width: 80px;
+        height: 80px;
+        border-radius: 5%;
+        cursor: pointer;
+        background-image: url("./../../../public/images/logo.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+}
+
+.cart {
+    display: flex;
+    height: 40px;
+    width: 100px;
+    background-color: #576783;
+    border-radius: 5px;
+
+    button {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        font-size: 15px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: #FFF
+    }
+
+    button:hover {
+        background-color: #00FF00;
+        transform: scale(1.05);
+        transition: all 0.3s ease-out;
+    }
+}
+
+.login {
+    display: flex;
+    height: 40px;
+    width: 200px;
+    background-color: #576783;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    margin-right: 5px;
+}
+
+
+.input {
+    display: flex;
+    height: 40px;
+    width: 800px;
+    background-color: white;
+    border-radius: 5px;
+
+    input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: black;
+        height: 100%;
+        width: 90%;
+        padding: 10px;
+        background-clip: content-box;
+    }
+
+    input::placeholder {
+        padding-left: 10px;
+        color: black;
+        caret-color: black;
+    }
+
+    button {
+        background-color: transparent;
+        font-size: 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding-right: 10px;
+    }
+}
