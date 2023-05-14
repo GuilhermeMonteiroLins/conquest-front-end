@@ -68,6 +68,14 @@ export default function ProdDetail() {
                     <p id={styles.val}><strong>{currentProduct?.productValue?.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</strong></p>
                     <p><strong>Review: {currentProduct?.productReview}/5.0</strong></p>
                     <p id={styles.desc}><strong>Descrição:</strong> <br/> {currentProduct?.productDescription}</p>
+                    <div className={styles.cartProd}>
+                        <button>Adicionar ao Carrinho</button>
+                        <div className={styles.controls}>-</div>
+                        <span>
+                            10
+                        </span>
+                        <div className={styles.controls}>+</div>
+                    </div>
                 </aside>
             </section>
         </div>

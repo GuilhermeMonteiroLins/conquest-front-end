@@ -1,0 +1,71 @@
+.header {
+    overflow-y: hidden;
+    height: 18vh;
+    background-color: #1A1C29;
+    color: #FFF;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .logo {
+        width: 18vh;
+        height: 18vh;
+        img {
+            width: 18vh;
+            height: 18vh;
+        }
+    }
+    .search {
+        border: solid white 2px;
+        background-color: #FFF;
+        height: 35%;
+        width: 60%;
+        border-radius: 7px;
+        input, button{
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        input {
+            height: 100%;
+            width: 95%;
+            padding-left: 20px;
+        }
+        button {
+            cursor: pointer;
+        }
+    }
+    .cart {
+        background-color: #576783;
+        border-radius: 10px;
+        width: 40%;  
+        &:hover {
+            background-color: #00FF00;
+            transform: scale(1.05);
+            transition: all 0.3s ease-out;
+        }
+        button{
+            width: 100%;
+            height: 100%;   
+            background: transparent;
+            border: none;
+            outline: none;
+            font-weight: 500;
+            color: #FFF;
+            cursor: pointer;
+        }
+    }
+    .child {
+        height: 35%;
+        width: 25%; 
+        display: flex;
+        justify-content: space-between;
+        .login {
+            width: 50%;
+            background-color: #576783;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+    }
+}

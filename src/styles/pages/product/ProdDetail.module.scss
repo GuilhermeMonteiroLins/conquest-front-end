@@ -141,3 +141,35 @@
     color: #FFF;
     margin-right: 5px;
 }
+
+.cartProd {
+    margin-top: 20px;
+    width: 220px;
+    height: 50px;
+    display: flex;
+    background-color: #a5c2ff;
+
+    button {
+        height: 100%;
+        width: 80%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
+    .controls {
+        font-size: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .controls:hover {
+        background-color: red;
+        transform: scale(1.05);
+        transition: all 0.3s ease-out;
+        cursor: pointer
+    }
+
+    span {
+        width: 18px;
+    }
+}
