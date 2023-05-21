@@ -11,7 +11,7 @@
         height: 80vh;
         display: flex;
         flex-direction: row;
-        justify-content: space-around   ;
+        justify-content: space-around;
         background-color: #111219;
     }
 
@@ -24,9 +24,11 @@
         h1 {
             font-size: 40px;
         }
+
         #val {
             font-size: 30px;
         }
+
         #desc {
             text-align: justify;
         }
@@ -50,7 +52,7 @@
 
     align-items: center;
 
-    .logo{
+    .logo {
         margin-left: 5px;
         width: 120px;
         height: 100%;
@@ -61,9 +63,11 @@
         background-position: center;
         background-size: cover;
     }
+
     ul {
         display: flex;
-        li{
+
+        li {
             color: purple;
             list-style-type: none;
             cursor: pointer;
@@ -78,7 +82,8 @@
     width: 260px;
     background-color: #576783;
     border-radius: 5px;
-    input{
+
+    input {
         border: none;
         outline: none;
         background-color: transparent;
@@ -88,11 +93,13 @@
         padding: 10px;
         background-clip: content-box;
     }
+
     input::placeholder {
         padding-left: 10px;
         color: #FFF;
         caret-color: #FFF;
     }
+
     button {
         background-color: transparent;
         font-size: 20px;
@@ -140,4 +147,32 @@
     align-items: center;
     color: #FFF;
     margin-right: 5px;
+}
+
+.btnBuyToCart {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    button {
+        font-size: 16px;
+        margin-top: 10px;
+        border-radius: 10px;
+        padding: 10px;
+        border: none;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+}
+
+.btnCart {
+    background-color: black;
+    color: white;
+}
+
+.btnBuy {
+    background-color: white;
+    color: black;
 }

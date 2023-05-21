@@ -41,7 +41,8 @@ const ImageSlider = ({ slides }) => {
 
     const imagesContainerStyles = {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: '100%'
     }
 
     const miniImageStyles = {

@@ -3,8 +3,8 @@ export default function Home(props) {
 
     const containerStyles = {
         width: props.width + 'px',
-        height: props.heigth + 'px',
-        margin: "0 auto",
+        height: props.height + 'px',
+        marginTop: '20px',
     }
 
     return (
