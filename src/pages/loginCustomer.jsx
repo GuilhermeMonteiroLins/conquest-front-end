@@ -12,18 +12,19 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const router = useRouter()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
    
-    let autenticate = await apiCustomerLogin(email, senha)
-    if (autenticate.userId == 0) {
+    let authenticate = await apiCustomerLogin(email, senha)
+    if (authenticate.customerId == 0) {
       Toastify(toastifyConfig.error).showToast()
     } else {
       Toastify(toastifyConfig.login).showToast()
-      autenticate.userEmail = email;
-      autenticate.userSenha = senha;
+      authenticate.userEmail = email;
+      authenticate.userSenha = senha;
      
-      localStorage.setItem("userData", JSON.stringify(autenticate))
+      localStorage.setItem("userData", JSON.stringify(authenticate))
       console.log(JSON.parse(localStorage.getItem("userData")))
       router.push("/")
     }
@@ -39,7 +40,7 @@ export default function Login() {
         <input 
         value={email} 
         onChange={(e) => setEmail(e.target.value)} 
-        type="text" 
+        type="email" 
         placeholder="e-mail" />
         <input 
         value={senha} 

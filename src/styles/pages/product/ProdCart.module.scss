@@ -5,11 +5,11 @@
     color: #FFF;
     width: 100vw;
     height: 80vh;
+    padding: 5%;
 }
 
 .products {
     width: 100vw;
-    height: 80vh;
     align-items: center;
     background-color: #111219;
     // overflow: auto;
@@ -51,6 +51,8 @@
     background-color: #111219;
     width: 100vw;
     height: 20vh;
+    bottom: 0;
+    left: 0;
     position: absolute;
 
     button {
@@ -67,6 +69,15 @@
         align-items: center;
     }
 }
+
+.footerPrice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+
 
 .removerProduto {
     background-color: #576783;

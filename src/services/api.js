@@ -91,8 +91,7 @@ export const apiCustomerLogin = async (email, password) => {
       data = await response.json()
     })
     .catch(async error => {
-      console.log(object)
-      //data = await error.json();
+      return null;
     })
   return data
 }
@@ -149,6 +148,10 @@ export const apiCustomerCad = async (
   return data
 }
 
+export const apiListAddress = async (idUser) => {
+  const response = await fetch(`${url}/customer/list/address?id_customer=${idUser}`);
+  return response;
+}
 
 export const apiUserBackLogin = async (email, password) => {
   let data;
@@ -224,7 +227,7 @@ export const apiProdList = async () => {
 };
 
 
-export const apiCEPList = async cep => {
+export const apiCEPList = async (cep) => {
   let data
 
   await fetch(`https://viacep.com.br/ws/${cep}/json/`, {
