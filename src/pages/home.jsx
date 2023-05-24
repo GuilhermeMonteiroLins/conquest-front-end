@@ -1,20 +1,38 @@
 import { Button } from '@/components/Button'
 import styles from '@/styles/pages/Home.module.scss'
 import { useRouter } from "next/router"
-
-const getOut = (router) => {
-  localStorage.clear()
-  router.push("/login")
-}
-
+import { useEffect, useState } from 'react'
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+import toastifyConfig from '@/util/ToastifyConfigs/toastifyConfig';
 
 export default function Home() {
+
+  const [userInfo, setUserInfo] = useState();
   const router = useRouter()
+
+  const getOut = (router) => {
+    localStorage.clear()
+    router.push("/login")
+  }
+
+  const handlePermisson = () => {
+    if (userInfo?.userGroup == 2) {
+      Toastify(toastifyConfig.Denied).showToast()
+    } else {
+      router.push("user/userList")
+    }
+  }
+
+  useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem('userData')))
+  }, [])
+
   return (
     <>
-    <span className={styles.saudation}>Seja bem-vindo {JSON.parse(localStorage.getItem("userData")).userEmail}</span>
+      <span className={styles.saudation}>Seja bem-vindo {userInfo?.userEmail}</span>
       <div className={styles.Button}>
-      <Button onClick={() => getOut(router) } type="button" color={"goback"}>Sair</Button>
+        <Button onClick={() => getOut(router)} type="button" color={"goback"}>Sair</Button>
       </div>
       <div className={styles.container}>
         <div className={styles.title}>
@@ -26,8 +44,8 @@ export default function Home() {
             <p className={styles.paragraph}>Produto</p>
           </div>
           <div className={styles.componentUser}>
-            <img className={styles.btnUser} src="images/iconUser.png" onClick={() => router.push("user/userList")} />
-            <p className={styles.paragraph}>Usuarios</p>
+            <img className={styles.btnUser} src="images/iconUser.png" onClick={() => handlePermisson()} />
+            <p className={styles.paragraph}>Usuários</p>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   margin: 30px;
+
   .back {
     font-weight: bold;
     background-color: #a3c4ff;
@@ -29,6 +30,7 @@
   .save {
     background-color: #3fbe5b;
   }
+
   .cancel {
     background-color: #ff6868;
   }
@@ -39,10 +41,12 @@
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
+
   .cad {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .userCad {
       font-weight: bold;
       background-color: #a3c4ff;
@@ -69,4 +73,112 @@
     transition: background 250ms;
     margin-top: 20px;
   }
+
+}
+
+
+
+.containerUserList {
+  width: 80vw;
+  padding: 10px;
+
+  table {
+    color: white;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    background-color: #52557D;
+  }
+
+  text-align: center;
+  vertical-align: middle;
+
+  th {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  tbody {
+    border-collapse: collapse;
+  }
+
+  tr:nth-child(even) {
+    background-color: #12131b;
+  }
+
+  button {
+    border-radius: 5px;
+    width: 60px;
+    height: 30px;
+    background-color: green;
+  }
+}
+
+
+
+
+
+
+.container2 {
+  width: 80vw;
+  padding: 10px;
+
+  table {
+    color: white;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    background-color: #52557D;
+  }
+
+  text-align: center;
+  vertical-align: middle;
+
+  th {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  tbody {
+    border-collapse: collapse;
+  }
+
+  tr:nth-child(even) {
+    background-color: #12131b;
+  }
+
+  button {
+    border-radius: 10px;
+    width: 60px;
+    height: 40px;
+    background-color: green;
+    border: solid black 2px;
+  }
+}
+
+.imagem {
+  width: 35px;
+  height: 35px;
 }
