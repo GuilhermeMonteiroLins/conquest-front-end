@@ -162,9 +162,9 @@ const ProdCart = () => {
                         <footer className={styles.footer}>
                             <span className={styles.footerPrice}>
                                 <span>
-                                    <p>Frete: {randomFreight}</p>
-                                    <p>Produtos: {totalPrice}</p>
-                                    <p>Total: {totalPrice + randomFreight}</p>
+                                    <p>Frete: {randomFreight.toFixed(2)}</p>
+                                    <p>Produtos: {totalPrice.toFixed(2)}</p>
+                                    <p>Total: {(totalPrice + randomFreight).toFixed(2)}</p>
                                 </span>
 
                                 <span>
