@@ -1,25 +1,36 @@
-.container {
+// .container {
 
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center ;
+
+// }
+
+// .DadosEndereco {
+//   margin-bottom: 20px;
+//   width: 250px;
+//   margin: 30px auto;
+//   display: flex;
+//   align-items: flex-start;
+// }
+
+// .DadosPessoais {
+//   margin-bottom: 20px;
+//   width: 250px;
+//   margin: 30px auto;
+//   display: flex;
+//   align-items: flex-end;
+// }
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center ;
- 
-  
-}
+  align-items: center;
 
-
-.DadosEndereco {
-  margin-bottom: 20px;
-  width: 250px;
-  margin: 30px auto;
-  display: flex;
-  align-items: flex-start;
-}
-
-.DadosPessoais {
-  margin-bottom: 20px;
-  width: 250px;
-  margin: 30px auto;
-  display: flex;
-  align-items: flex-end;
+  .formContainer {
+    margin-top: 100px;
+    .formWrapper {
+      display: flex;
+      gap: 32px;
+    }
+  }
 }

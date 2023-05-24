@@ -1,0 +1,21 @@
+.container {
+  margin: 20px;
+}
+.summary {
+  padding: 20px;
+  background-color: #1b1c29;
+  height: 120px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  > div {
+    position: relative;
+  }
+  .infoAddress {
+    display: flex;
+    gap: 30px;
+  }
+}

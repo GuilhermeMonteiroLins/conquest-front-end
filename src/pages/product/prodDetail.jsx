@@ -58,10 +58,6 @@ export default function ProdDetail() {
                     />
                 </div>
 
-                <DefaultImage
-                    image={JSON.parse(localStorage.getItem("currentProduct")).productImages[0]}
-                />
-
                 <aside>
                     <h1><strong>{currentProduct?.productName}</strong></h1>
                     {console.log(currentProduct)}
