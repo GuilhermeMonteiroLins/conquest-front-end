@@ -32,7 +32,7 @@ export default function ProdDetail(props) {
                     imageBase64: product.productImages[0].imageBase64,
                     productName: product.productName,
                     productPrice: Number(product.productValue),
-                    quantity: 1
+                    productQtd: 1
                 }
             ];
 
@@ -57,7 +57,7 @@ export default function ProdDetail(props) {
             imageBase64: product.productImages[0].imageBase64,
             productName: product.productName,
             productPrice: product.productValue,
-            quantity: 1
+            productQtd: 1
         });
 
         localStorage.removeItem('cart');
