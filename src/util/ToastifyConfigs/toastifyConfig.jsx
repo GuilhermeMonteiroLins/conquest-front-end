@@ -28,6 +28,28 @@ const toastifyConfig = {
         position: "center",
         backgroundColor: "linear-gradient(to right, #f6d365, #fda085)",
     },
+    requiredAddress: {
+        text: "Por favor, escolha um endereço!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"        
+    },
+    requiredAuthenticate: {
+        text: "Necessário autenticar no sistema para prosseguir com o pagamento!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+        close: true   
+    },
+    errorInPayment: {
+        text: "Erro ao efetuar pagamento!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"     
+    },
 };
 
 export default toastifyConfig; 

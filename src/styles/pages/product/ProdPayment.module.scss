@@ -1,0 +1,24 @@
+.formPayment {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    text-align: center;
+    align-items: center;
+
+    Input {
+        margin-bottom: 10px;
+        width: 500px;
+    }
+
+    .inputGroup {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        margin-left: 36%;
+        align-self: center;
+        
+        Input {
+            width: auto;
+        }
+    }
+}

@@ -428,3 +428,19 @@ export const listAllProductsBySearch = async (searchString) => {
     return [];
   }
 };
+
+export const orderAdd = async (json) => {
+  const response = await fetch(`${url}/customer/order/add`, {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(json)
+  });
+
+  if (response.status === 200) {
+    return response.json();
+  }
+
+  return null;
+}
