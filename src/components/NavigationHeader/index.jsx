@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import styles from "@/styles/pages/Index.module.scss"
 import { useRouter } from 'next/router'
 import Head from 'next/head';
+import Dropdown from "../DropDown/DropDown";
 
 export function NavigationHeader() {
     const [userData, setUserData] = useState(undefined);
@@ -59,9 +60,9 @@ export function NavigationHeader() {
                                         {
                                             cart != null ?
                                                 <>
-                                                    <button onClick={() => router.push("/product/prodCart")}>🛒Carrinho ({cart.length > 0 ? cart.length : 0})</button>
+                                                    <button onClick={() => router.push("/product/prodCart")}>🛒<span>Carrinho</span>({cart.length > 0 ? cart.length : 0})</button>
                                                 </> : <>
-                                                    <button onClick={() => router.push("/product/prodCart")}>🛒Carrinho</button>
+                                                    <button onClick={() => router.push("/product/prodCart")}>🛒<span>Carrinho</span></button>
                                                 </>
                                         }
 
@@ -70,25 +71,21 @@ export function NavigationHeader() {
                                 {
                                     !userData ?
                                         <>
-                                            <li
-                                                onMouseEnter={() => setIsLoginOrRegisterHovered(true)}
-                                                onMouseLeave={() => setIsLoginOrRegisterHovered(false)}>
-                                                <div
-                                                    className={styles.login}>
-                                                    Login/Cadastrar
-                                                </div>
+                                            <li>
+                                                <Dropdown className={styles.logOut} onClick={() =>
+                                                    handleOptionClick()} options={[
+                                                        { value: '/loginCustomer', label: 'Entrar' },
+                                                        { value: '/customer/customerCad', label: 'Criar Conta' }
+                                                    ]} />
 
-                                                {isLoginOrRegisterHovered ?
-                                                    <>
-                                                        <div className="popup">
-                                                            <button onClick={(e) => { router.push("/loginCustomer") }}> Entrar </button>
-                                                            <button onClick={(e) => { router.push("/customer/customerCad") }}> Criar Conta </button>
-                                                        </div>
-                                                    </> : <></>
-                                                }
                                             </li>
                                         </>
                                         : <>
+                                            <Dropdown className={styles.logOut} onClick={() =>
+                                                toggleDropdown()} options={[
+                                                    { value: '/customer/customerAlt', label: 'Alterar Dados' },
+                                                    { value: '/customer/orderList', label: 'Listar Pedidos' }
+                                                ]} />
                                             <button className={styles.logOut} onClick={() => handleLogOut()}> Sair </button>
                                         </>
                                 }

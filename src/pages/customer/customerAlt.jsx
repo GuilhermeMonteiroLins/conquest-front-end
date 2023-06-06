@@ -1,72 +1,153 @@
-import React, { useState } from 'react';
-import styles from '@/styles/pages/customer/customerAlt.module.scss';
-import { Input } from '@/components/Input';
-import { Button } from '@/components/Button';
+/* eslint-disable react/jsx-boolean-value */
+import { useEffect, useState } from "react";
+import styles from "@/styles/pages/user/UserCad.module.scss";
+import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
+import { useRouter } from "next/router";
+import validarNome from "@/util/validarNome";
+import { apiCustomerAlt, apiCustomerData } from "@/services/api";
 
-const CustomerAlter = () => {
-    const [nome, setNome] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [email, setEmail] = useState('');
-    const [dataNascimento, setDataNascimento] = useState('');
-    const [senha, setSenha] = useState('');
-    const [confirmarSenha, setConfirmarSenha] = useState('');
-    const [generos, setGeneros] = useState([]);
+export default function CustomerAlt() {
+    const [id, setId] = useState("");
+    const [nome, setNome] = useState("");
+    const [genero, setGenero] = useState("");
+    const [dataNascimento, setDataNascimento] = useState("");
+    const [senha, setSenha] = useState("");
+    const [senha2, setSenha2] = useState("");
+    const router = useRouter();
 
-    const handleAlterarCadastro = () => {
-        // Lógica para enviar os dados para a API e atualizar o cadastro do usuário
-        // ...
+
+    const fetchCustomerData = async () => {
+        const customerData = await apiCustomerData(JSON.parse(localStorage.getItem('userData')).customerId)
+        setId(customerData.userId)
+        setNome(customerData.userName)
+        setGenero(customerData.userGender)
+        setDataNascimento(customerData.userBirthDate)
+        setSenha(customerData.userPassword)
+        setSenha2(customerData.userPassword)
+
+        console.log(customerData)
+    }
+
+    useEffect(() => {
+        fetchCustomerData()
+    }, [])
+
+    const checaNome = (nome) => {
+        if (validarNome(nome) == false) {
+            alert(
+                "Nome Inválido! Verifique se o nome não contém caracteres especiais"
+            );
+            setNome("");
+            return false;
+        } else {
+            setNome(nome);
+            return true;
+        }
     };
 
-    const handleCancelar = () => {
-        // Lógica para cancelar a alteração do cadastro e redirecionar o usuário para outra página
-        // ...
+    const checaSenha = (senha, senha2) => {
+        if (senha !== senha2) {
+            alert("Senha Inválida!!!")
+            setSenha('')
+            setSenha2('')
+            return false
+        } else {
+            return true
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validadeFields()) {
+            return alert("Campo inválido.");
+        }
+        let data = apiCustomerAlt(id, nome, genero, dataNascimento, senha);
+        
+        alert("Usuário alterado!");
+
+        router.push("/")
+    };
+
+
+    const validadeFields = () => {
+        let isValidNome = checaNome(nome);
+        let isValidSenha = checaSenha(senha, senha2);
+
+        if (
+            isValidNome &&
+            isValidSenha
+        ) {
+            return true;
+        }
+        return false;
     };
 
     return (
         <>
+            <button onClick={() => router.push("/")} type="button">
+                Voltar
+            </button>
             <div className={styles.container}>
-                <div className={styles.containerInput}>
-                    <h1 className={styles.h1}>Alterar Cadastro de Usuário</h1>
-                    <label className={styles.label}>Nome:</label>
-                    <Input type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
-
-                    <label className={styles.label}>CPF:</label>
-                    <Input type="text" value={cpf} onChange={(e) => setCpf(e.target.value)} />
-
-                    <label className={styles.label}>Email:</label>
-                    <Input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-
-                    <label className={styles.label}>Data de Nascimento:</label>
-                    <Input
-                        type="text"
-                        value={dataNascimento}
-                        onChange={(e) => setDataNascimento(e.target.value)}
-                    />
-
-                    <label className={styles.label}>Senha:</label>
-                    <Input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
-
-                    <label className={styles.label}>Confirmar Senha:</label>
-                    <Input
-                        type="password"
-                        value={confirmarSenha}
-                        onChange={(e) => setConfirmarSenha(e.target.value)}
-                    />
-
-                    <label className={styles.label}>Gêneros:</label>
-                    <select multiple value={generos} onChange={(e) => setGeneros(Array.from(e.target.selectedOptions, option => option.value))}>
-                        <option value="masculino">Masculino</option>
-                        <option value="feminino">Feminino</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                    <div className={styles.buttonGroup}>
-                        <Button className={styles.button} onClick={handleCancelar}>Cancelar</Button>
-                        <Button className={styles.button} onClick={handleAlterarCadastro}>Alterar</Button>
-                    </div>
+                <div className={styles.tittle}>
+                    <h1>Alterar dados usuário</h1>
+                </div>
+                <div className={styles.data}>
+                    <form onSubmit={handleSubmit} className={styles.form}>
+                        <Input
+                            value={nome}
+                            onChange={(e) => setNome(e.target.value)}
+                            type="text"
+                            placeholder="Digite seu nome"
+                            label="Nome:"
+                            maxLength="100"
+                            required
+                        />
+                        <Input
+                            value={genero}
+                            onChange={(e) => setGenero(e.target.value)}
+                            type="text"
+                            placeholder="Digite seu Genero"
+                            label="Genero:"
+                            maxLength="11"
+                        />
+                        <Input
+                            value={dataNascimento}
+                            onChange={(e) => setDataNascimento(e.target.value)}
+                            type="date"
+                            placeholder="Digite sua data de nascimento"
+                            label="Data de Nascimento:"
+                            maxLength="11"
+                        />
+                        <Input
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            type="password"
+                            placeholder="Digite sua senha"
+                            label="Senha:"
+                        />
+                        <Input
+                            value={senha2}
+                            onChange={(e) => setSenha2(e.target.value)}
+                            type="password"
+                            placeholder="Digite sua senha"
+                            label="Repita sua senha:"
+                        />
+                        <div className={styles.submit}>
+                            <Button
+                                type="reset"
+                                color="cancel"
+                                onClick={() => router.push("/")}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button type="submit" color="primary">
+                                Salvar
+                            </Button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </>
     );
-};
-
-export default CustomerAlter;
+}
