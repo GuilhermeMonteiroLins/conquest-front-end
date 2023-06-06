@@ -148,6 +148,49 @@ export const apiCustomerCad = async (
   return data
 }
 
+export const apiCustomerAlt = async (id, nome, genero, dataNascimento, senha) => {
+  let data
+  const object = JSON.stringify({
+    userId: id,
+    userName: nome,
+    userGender: genero,
+    userBirthDate: dataNascimento,
+    userPassword: senha
+  })
+  await fetch(`${url}/customer/update`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: object
+  })
+    .then(async response => {
+      data = await response.json()
+    })
+    .catch(async error => {
+      return null;
+    })
+  return data
+};
+
+export const apiCustomerData = async (id) => {
+  let data;
+  await fetch(`${url}/customer?id_customer=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    }
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      //data = await error.json();
+    });
+  return data;
+};
+
+
 export const apiListAddress = async (idUser) => {
   const response = await fetch(`${url}/customer/list/address?id_customer=${idUser}`);
   return response;
@@ -444,3 +487,23 @@ export const orderAdd = async (json) => {
 
   return null;
 }
+
+export const apiOrderList = async (id) => {
+  let data = [];
+  const object = []
+  await fetch(`${url}/customer/order?customer_id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    }
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(object)
+      //data = await error.json();
+    });
+  return data;
+  // Retornar apenas a lista
+};

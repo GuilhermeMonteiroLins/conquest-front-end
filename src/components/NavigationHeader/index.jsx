@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import styles from "@/styles/pages/Index.module.scss"
 import { useRouter } from 'next/router'
 import Head from 'next/head';
+import Dropdown from "../DropDown/DropDown";
 
 export function NavigationHeader() {
     const [userData, setUserData] = useState(undefined);
@@ -59,9 +60,9 @@ export function NavigationHeader() {
                                         {
                                             cart != null ?
                                                 <>
-                                                    <button onClick={() => router.push("/product/prodCart")}>🛒Carrinho ({cart.length > 0 ? cart.length : 0})</button>
+                                                    <button onClick={() => router.push("/product/prodCart")}>🛒<span>Carrinho</span>({cart.length > 0 ? cart.length : 0})</button>
                                                 </> : <>
-                                                    <button onClick={() => router.push("/product/prodCart")}>🛒Carrinho</button>
+                                                    <button onClick={() => router.push("/product/prodCart")}>🛒<span>Carrinho</span></button>
                                                 </>
                                         }
 
@@ -73,9 +74,8 @@ export function NavigationHeader() {
                                             <li
                                                 onMouseEnter={() => setIsLoginOrRegisterHovered(true)}
                                                 onMouseLeave={() => setIsLoginOrRegisterHovered(false)}>
-                                                <div
-                                                    className={styles.login}>
-                                                    Login/Cadastrar
+                                                <div className={styles.login}>
+                                                    <span><img src="/images/IconUser.png" alt="Login Usuario" style={{height: "35px", width: "35px" }}/></span>
                                                 </div>
 
                                                 {isLoginOrRegisterHovered ?
@@ -89,6 +89,7 @@ export function NavigationHeader() {
                                             </li>
                                         </>
                                         : <>
+                                            <Dropdown className={styles.logOut} onClick={() => toggleDropdown()}/>
                                             <button className={styles.logOut} onClick={() => handleLogOut()}> Sair </button>
                                         </>
                                 }

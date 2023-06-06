@@ -102,7 +102,6 @@ export default function UserCad() {
       return alert('Campo inválido.')
     }
 
-    window.alert('entrouuu')
     let data = apiCustomerCad(
       nome,
       cpf,
@@ -118,7 +117,6 @@ export default function UserCad() {
       genero,
       dateAniver
     )
-    console.log(data)
     alert('Cliente Cadastrado!')
   }
 
@@ -168,7 +166,7 @@ export default function UserCad() {
             <Input
               value={dateAniver}
               onChange={e => setDateAniver(e.target.value)}
-              type="text"
+              type="date"
               placeholder="Digite o aniversário"
               label="Digite a data do seu aniversário:"
             />
