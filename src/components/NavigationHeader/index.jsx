@@ -71,25 +71,21 @@ export function NavigationHeader() {
                                 {
                                     !userData ?
                                         <>
-                                            <li
-                                                onMouseEnter={() => setIsLoginOrRegisterHovered(true)}
-                                                onMouseLeave={() => setIsLoginOrRegisterHovered(false)}>
-                                                <div className={styles.login}>
-                                                    <span><img src="/images/IconUser.png" alt="Login Usuario" style={{height: "35px", width: "35px" }}/></span>
-                                                </div>
+                                            <li>
+                                                <Dropdown className={styles.logOut} onClick={() =>
+                                                    handleOptionClick()} options={[
+                                                        { value: '/loginCustomer', label: 'Entrar' },
+                                                        { value: '/customer/customerCad', label: 'Criar Conta' }
+                                                    ]} />
 
-                                                {isLoginOrRegisterHovered ?
-                                                    <>
-                                                        <div className="popup">
-                                                            <button onClick={(e) => { router.push("/loginCustomer") }}> Entrar </button>
-                                                            <button onClick={(e) => { router.push("/customer/customerCad") }}> Criar Conta </button>
-                                                        </div>
-                                                    </> : <></>
-                                                }
                                             </li>
                                         </>
                                         : <>
-                                            <Dropdown className={styles.logOut} onClick={() => toggleDropdown()}/>
+                                            <Dropdown className={styles.logOut} onClick={() =>
+                                                toggleDropdown()} options={[
+                                                    { value: '/customer/customerAlt', label: 'Alterar Dados' },
+                                                    { value: '/customer/orderList', label: 'Listar Pedidos' }
+                                                ]} />
                                             <button className={styles.logOut} onClick={() => handleLogOut()}> Sair </button>
                                         </>
                                 }

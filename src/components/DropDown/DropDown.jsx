@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router'
 import styles from './DropDown.module.scss'
 
-const Dropdown = () => {
+const Dropdown = (props) => {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar se o dropdown está aberto ou fechado
   const [selectedOption, setSelectedOption] = useState(null); // Estado para armazenar a opção selecionada
   const router = useRouter();
 
-  const options = [
-    { value: '/customer/customerAlt', label: 'Alterar Dados' },
-    { value: '/customer/orderList', label: 'Listar Pedidos' }
-  ];
+  const options = [...props.options]
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
