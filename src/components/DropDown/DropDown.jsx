@@ -22,7 +22,7 @@ const Dropdown = (props) => {
   return (
     <div className={styles.dropdown}>
       <div className={styles.dropdownToggle} onClick={toggleDropdown}>
-        <img src="images/IconUser.png" alt="Configurações de Usuario" style={{height: "50px", width: "50px"}} />
+        <img src="/images/IconUser.png" alt="Configurações de Usuario" style={{height: "50px", width: "50px"}} />
       </div>
       {isOpen && (
         <ul className={styles.dropdownOptions}>

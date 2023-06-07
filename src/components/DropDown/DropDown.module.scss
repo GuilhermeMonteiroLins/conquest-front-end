@@ -16,12 +16,13 @@
     flex-direction: column;
     position: absolute;
     align-items: center;
+    z-index: 900;
     top: 100%;
     left: 0;
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #576783;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-top: none;
     border-radius: 0 0 4px 4px;
