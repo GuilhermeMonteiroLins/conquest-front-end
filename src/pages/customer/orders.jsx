@@ -18,7 +18,7 @@ export default function List() {
     const fetchOrderList = async () => {
         try {
             const listaPedidos = await apiOrders()
-            setOrderData(listaPedidos)
+            setOrderData(listaPedidos.reverse())
         } catch (error) {
             console.log(error)
         }
