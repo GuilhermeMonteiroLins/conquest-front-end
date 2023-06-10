@@ -50,6 +50,13 @@ const toastifyConfig = {
         position: "center",
         backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"     
     },
+    errorCartEmpty: {
+        text: "Seu carrinho esta vazio!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"     
+    },
 };
 
 export default toastifyConfig; 

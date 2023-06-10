@@ -8,11 +8,19 @@ import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import 'rsuite/dist/rsuite.min.css'
 import Dropdown from "../../components/DropDown/DropDownStatus/DropDown";
+import Pagination from '@/components/Pagination/Pagination'
 
 export default function List() {
     const [userId, setUserId] = useState(0)
     const [orderData, setOrderData] = useState([])
     const [idOrder, setIdOrder] = useState()
+
+    const [currentPage, setCurrentPage] = useState(0)
+    const ITEMS_PER_PAGE = 10
+    const pages = Math.ceil(orderData.length / ITEMS_PER_PAGE)
+    const startPage = currentPage * ITEMS_PER_PAGE
+    const endPage = startPage + ITEMS_PER_PAGE
+    const pagedItems = orderData.slice(startPage, endPage)
     const router = useRouter()
 
     const fetchOrderList = async () => {
@@ -25,6 +33,7 @@ export default function List() {
     }
 
     useEffect(() => {
+        setCurrentPage(0)
         fetchOrderList()
         setUserId(JSON.parse(localStorage.getItem('userData')).userId)
     }, [])
@@ -73,7 +82,7 @@ export default function List() {
                             </tr>
                         </thead>
                         <tbody>
-                            {orderData.map(orders => (
+                            {pagedItems?.map(orders => (
                                 <tr key={orders.orderId}>
                                     <td> {orders.orderId} </td>
                                     <td> {orders.customerId} </td>
@@ -83,11 +92,12 @@ export default function List() {
                                     <td> {orders.status}
                                         <Dropdown className={styles.logOut} onClick={() =>
                                             toggleDropdown()} options={[
-                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PAGAMENTO CANCELADO' },
-                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PREPAREANDO PEDIDO' },
-                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PEDIDO A CAMINHO' },
-                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PEDIDO REJEITADO' },
-                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'FINALIZADO' }
+                                                { value: { orderId: orders.orderId, userId: userId, customerId: orders.customerId }, label: 'AGUARDANDO PAGAMENTO' },
+                                                { value: { orderId: orders.orderId, userId: userId, customerId: orders.customerId }, label: 'PAGAMENTO CANCELADO' },
+                                                { value: { orderId: orders.orderId, userId: userId, customerId: orders.customerId }, label: 'PREPAREANDO PEDIDO' },
+                                                { value: { orderId: orders.orderId, userId: userId, customerId: orders.customerId }, label: 'PEDIDO A CAMINHO' },
+                                                { value: { orderId: orders.orderId, userId: userId, customerId: orders.customerId }, label: 'PEDIDO REJEITADO' },
+                                                { value: { orderId: orders.orderId, userId: userId, customerId: orders.customerId }, label: 'FINALIZADO' }
                                             ]} />
                                     </td>
 
@@ -96,6 +106,12 @@ export default function List() {
                             }
                         </tbody>
                     </table>
+
+                    <Pagination
+                        pages={pages}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
                 </section>
             </div >
         </>

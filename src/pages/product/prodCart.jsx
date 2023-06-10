@@ -115,15 +115,18 @@ const ProdCart = () => {
             Toastify(toastifyConfig.requiredAddress).showToast();
             return;
         }
-
         if (!isAuthenticated) {
             Toastify(toastifyConfig.requiredAuthenticate).showToast();
             router.push("/loginCustomer");
             return;
         }
-
-        localStorage.setItem('address', JSON.stringify(selectAddress));
-        router.push("/product/payment");
+        if (products?.length > 0) {
+            localStorage.setItem('address', JSON.stringify(selectAddress));
+            router.push("/product/payment");
+        }else{
+            Toastify(toastifyConfig.errorCartEmpty).showToast();
+            return;
+        }
     }
 
     const openModal = () => {
@@ -205,7 +208,7 @@ const ProdCart = () => {
 
                                     <button onClick={openModal}> Selecione um endereço </button>
                                     {isModalOpen && (
-                                        <Modaladdress addresses={address} onClose={closeModal} onSelect={setSelectAddress}/>
+                                        <Modaladdress addresses={address} onClose={closeModal} onSelect={setSelectAddress} />
                                     )}
                                     <p> Endereço: {selectAddress?.logradouro} - {selectAddress?.numero} / {selectAddress?.localidade} </p>
                                 </span>
