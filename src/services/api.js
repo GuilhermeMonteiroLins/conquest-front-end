@@ -507,3 +507,42 @@ export const apiOrderList = async (id) => {
   return data;
   // Retornar apenas a lista
 };
+
+export const apiOrders = async () => {
+  let data = [];
+  const object = []
+  await fetch(`${url}/backoffice/order`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    }
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(object)
+      //data = await error.json();
+    });
+  return data;
+  // Retornar apenas a lista
+};
+
+export const apiOrderSearch = async (id) => {
+  let data;
+
+  await fetch(`${url}/backoffice/order/id/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(error)
+    });
+
+  return data;
+}

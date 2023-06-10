@@ -16,7 +16,7 @@ export default function Home() {
     router.push("/login")
   }
 
-  const handlePermisson = () => {
+  const handlePermissonAdm = () => {
     if (userInfo?.userGroup == 2) {
       Toastify(toastifyConfig.Denied).showToast()
     } else {
@@ -44,8 +44,12 @@ export default function Home() {
             <p className={styles.paragraph}>Produto</p>
           </div>
           <div className={styles.componentUser}>
-            <img className={styles.btnUser} src="images/iconUser.png" onClick={() => handlePermisson()} />
+            <img className={styles.btnUser} src="images/iconUser.png" onClick={() => handlePermissonAdm()} />
             <p className={styles.paragraph}>Usuários</p>
+          </div>
+          <div className={styles.componentUser}>
+            <img className={styles.btnOrder} src="images/listaPedidos.png" onClick={() => router.push("customer/orders")} />
+            <p className={styles.paragraph}>Pedidos</p>
           </div>
         </div>
       </div>
