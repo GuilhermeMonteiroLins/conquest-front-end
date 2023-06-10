@@ -7,8 +7,10 @@ import Toastifyconf from '@/util/ToastifyConfigs/toastifyConfig';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import 'rsuite/dist/rsuite.min.css'
+import Dropdown from "../../components/DropDown/DropDownStatus/DropDown";
 
 export default function List() {
+    const [userId, setUserId] = useState(0)
     const [orderData, setOrderData] = useState([])
     const [idOrder, setIdOrder] = useState()
     const router = useRouter()
@@ -24,6 +26,7 @@ export default function List() {
 
     useEffect(() => {
         fetchOrderList()
+        setUserId(JSON.parse(localStorage.getItem('userData')).userId)
     }, [])
 
     const handleOrderSearch = async () => {
@@ -77,7 +80,17 @@ export default function List() {
                                     <td> {orders.formPayment} </td>
                                     <td> {orders.dateOrder} </td>
                                     <td> {orders.amount?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} </td>
-                                    <td> {orders.status}</td>
+                                    <td> {orders.status}
+                                        <Dropdown className={styles.logOut} onClick={() =>
+                                            toggleDropdown()} options={[
+                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PAGAMENTO CANCELADO' },
+                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PREPAREANDO PEDIDO' },
+                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PEDIDO A CAMINHO' },
+                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'PEDIDO REJEITADO' },
+                                                { value: {orderId:orders.orderId, userId: userId, customerId:orders.customerId}, label: 'FINALIZADO' }
+                                            ]} />
+                                    </td>
+
                                 </tr>
                             ))
                             }

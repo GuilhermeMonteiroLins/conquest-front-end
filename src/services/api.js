@@ -546,3 +546,27 @@ export const apiOrderSearch = async (id) => {
 
   return data;
 }
+
+export const apiUpdateOrder = async (status, customerId, userId, orderId) => {
+  let data;
+
+  const object = JSON.stringify({
+    status: status,
+    customerId: customerId,
+    orderId:orderId
+  })
+  await fetch(`${url}/backoffice/order/update/status?user_id=${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: object,
+  })
+    .then(async (response) => {
+      data = await response.status;
+    })
+    .catch(async (error) => {
+      console.log(object)
+    });
+  return data;
+}

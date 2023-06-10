@@ -8,6 +8,7 @@ import { apiCEPList, apiListAddress } from '@/services/api';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import toastifyConfig from '@/util/ToastifyConfigs/toastifyConfig';
+import Modaladdress from "../../components/ModalAddress/ModalAddress";
 
 const ProdCart = () => {
     const router = useRouter();
@@ -20,6 +21,7 @@ const ProdCart = () => {
     const [idUser, setIdUSer] = useState(0);
     const [showInputCep, setShowInputCep] = useState(null);
     const [randomFreight, setRandomFreight] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         setProducts(JSON.parse(localStorage.getItem("cart")));
@@ -63,7 +65,7 @@ const ProdCart = () => {
     }
 
     const handleRandomFreight = (products) => {
-        if(products.length > 0 && address != null){
+        if (products.length > 0 && address != null) {
             let min = Math.ceil(5);
             let max = Math.floor(20);
             return Math.floor(Math.random() * (max - min) + min);
@@ -121,6 +123,19 @@ const ProdCart = () => {
         localStorage.setItem('address', JSON.stringify(address));
         router.push("/product/payment");
     }
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleSelectAddress = (address) => {
+        setSelectedAddress(address);
+    };
+
 
     return (
         <>
@@ -198,6 +213,12 @@ const ProdCart = () => {
                                     {
                                         address != null ?
                                             <>
+                                                <button onClick={openModal}> Selecione um endereço </button>
+                                                {isModalOpen && (
+                                                    <Modaladdress  addresses={address}  onClose={closeModal} onSelect={handleSelectAddress}/>
+                                                )}
+                                                
+
                                                 <p style={{ color: 'white' }}>Endereço: {`${address.logradouro} - ${address.cep}`}</p>
                                             </> : <> </>
                                     }

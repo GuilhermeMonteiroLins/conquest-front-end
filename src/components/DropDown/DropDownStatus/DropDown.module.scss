@@ -1,7 +1,7 @@
 .dropdown {
   position: relative;
-  margin-left: 50px;
-  margin-right: 50px;
+  display: flex;
+  flex-direction: column;
 
   .dropdownToggle {
     border-radius: 5px;
@@ -18,10 +18,7 @@
     align-items: center;
     z-index: 900;
     top: 100%;
-    left: 0;
     list-style: none;
-    padding: 0;
-    margin: 0;
     background-color: #fff;
     border: 1px solid #ccc;
     border-top: none;

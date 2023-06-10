@@ -3,12 +3,14 @@ import styles from "@/styles/pages/Index.module.scss"
 import { useRouter } from 'next/router'
 import Head from 'next/head';
 import Dropdown from "../DropDown/DropDown";
+import { listAllProductsBySearch } from "../../services/api"
 
-export function NavigationHeader() {
+export function NavigationHeader(products) {
     const [userData, setUserData] = useState(undefined);
     const [cart, setCart] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
+    const [messageProduct, setMessageProduct] = useState(); 
     const [isLoginOrRegisterHovered, setIsLoginOrRegisterHovered] = useState(false);
     const router = useRouter();
 
