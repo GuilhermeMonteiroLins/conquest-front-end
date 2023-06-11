@@ -23,8 +23,7 @@ export default function OrderList() {
   const fetchOrderList = async () => {
     try {
       const listaOrder = await apiOrderList(userId)
-      setOrderList(listaOrder)
-      console.log(listaOrder)
+      setOrderList(listaOrder.reverse())
     } catch (error) {
       console.log(error)
     }

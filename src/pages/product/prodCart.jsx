@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from 'next/router'
@@ -8,6 +8,7 @@ import { apiCEPList, apiListAddress } from '@/services/api';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import toastifyConfig from '@/util/ToastifyConfigs/toastifyConfig';
+import Modaladdress from "../../components/ModalAddress/ModalAddress";
 
 const ProdCart = () => {
     const router = useRouter();
@@ -20,6 +21,8 @@ const ProdCart = () => {
     const [idUser, setIdUSer] = useState(0);
     const [showInputCep, setShowInputCep] = useState(null);
     const [randomFreight, setRandomFreight] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectAddress, setSelectAddress] = useState();
 
     useEffect(() => {
         setProducts(JSON.parse(localStorage.getItem("cart")));
@@ -38,10 +41,11 @@ const ProdCart = () => {
 
     const calculateValue = () => {
         let total = 0;
-        for (let prod of products) {
-            total = total + (prod.productPrice * prod.productQtd);
+        if (products != null) {
+            for (let prod of products) {
+                total = total + (prod.productPrice * prod.productQtd);
+            }
         }
-
         setTotalPrice(totalPrice + total);
         setLoading(false);
     }
@@ -63,7 +67,7 @@ const ProdCart = () => {
     }
 
     const handleRandomFreight = (products) => {
-        if(products.length > 0 && address != null){
+        if (products?.length > 0 && address != null) {
             let min = Math.ceil(5);
             let max = Math.floor(20);
             return Math.floor(Math.random() * (max - min) + min);
@@ -91,7 +95,7 @@ const ProdCart = () => {
             const response = await apiListAddress(idUser);
 
             response.json().then(json => {
-                setAddress(json[0]);
+                setAddress(json);
             })
 
         } else {
@@ -111,16 +115,30 @@ const ProdCart = () => {
             Toastify(toastifyConfig.requiredAddress).showToast();
             return;
         }
-
         if (!isAuthenticated) {
             Toastify(toastifyConfig.requiredAuthenticate).showToast();
             router.push("/loginCustomer");
             return;
         }
-
-        localStorage.setItem('address', JSON.stringify(address));
-        router.push("/product/payment");
+        if (products?.length > 0) {
+            localStorage.setItem('address', JSON.stringify(selectAddress));
+            router.push("/product/payment");
+        }else{
+            Toastify(toastifyConfig.errorCartEmpty).showToast();
+            return;
+        }
     }
+
+    const openModal = () => {
+        setIsModalOpen(true);
+        if (idUser > 0) {
+            searchAddress(true)
+        }
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <>
@@ -136,7 +154,7 @@ const ProdCart = () => {
                             <h1>Carrinho</h1>
                             <div className={styles.products}>
 
-                                {products.map((prod, index) => {
+                                {products?.map((prod, index) => {
                                     return (
                                         <div className={styles.product}>
                                             <div className={styles.imagemProduto}>
@@ -176,13 +194,6 @@ const ProdCart = () => {
                                         >
                                             Consultar novo CEP
                                         </a>
-                                        <a
-                                            href="#"
-                                            onClick={() => searchAddress(true)}
-                                            style={{ color: showInputCep ? 'white' : 'green', marginLeft: "10px" }}
-                                        >
-                                            Buscar endereço já cadastrado
-                                        </a>
                                     </section>
                                     {
                                         showInputCep ?
@@ -195,13 +206,11 @@ const ProdCart = () => {
                                             </> : <> </>
                                     }
 
-                                    {
-                                        address != null ?
-                                            <>
-                                                <p style={{ color: 'white' }}>Endereço: {`${address.logradouro} - ${address.cep}`}</p>
-                                            </> : <> </>
-                                    }
-
+                                    <button onClick={openModal}> Selecione um endereço </button>
+                                    {isModalOpen && (
+                                        <Modaladdress addresses={address} onClose={closeModal} onSelect={setSelectAddress} />
+                                    )}
+                                    <p> Endereço: {selectAddress?.logradouro} - {selectAddress?.numero} / {selectAddress?.localidade} </p>
                                 </span>
                             </span>
 

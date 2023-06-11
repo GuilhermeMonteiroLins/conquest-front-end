@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router'
 import styles from './DropDown.module.scss'
+import { apiUpdateOrder } from "@/services/api";
+import { useRouter } from 'next/router';
 
 const Dropdown = (props) => {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar se o dropdown está aberto ou fechado
@@ -16,13 +17,18 @@ const Dropdown = (props) => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    router.push(option.value)
+    handleRequestApi(option)
+    router.reload("customer/orders")
   };
+
+  const handleRequestApi = async (option) => {
+    await apiUpdateOrder(option.label, option.value.customerId, option.value.userId, option.value.orderId)
+  }
 
   return (
     <div className={styles.dropdown}>
       <div className={styles.dropdownToggle} onClick={toggleDropdown}>
-        <img src="/images/IconUser.png" alt="Configurações de Usuario" style={{height: "50px", width: "50px"}} />
+        <img src="/images/listaPedidos.png" alt="Configurações de Usuario" style={{height: "50px", width: "50px"}} />
       </div>
       {isOpen && (
         <ul className={styles.dropdownOptions}>
