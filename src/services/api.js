@@ -507,3 +507,29 @@ export const apiOrderList = async (id) => {
   return data;
   // Retornar apenas a lista
 };
+
+export const apiAddAddress = async (address, idCustomer) => {
+  let data = {}
+  
+  const payload = {
+    address: idCustomer,
+    ...address,
+  }
+
+  await fetch(`${url}/customer/register/address`, {
+    method: 'POST',
+    body: payload,
+    headers: {
+      "Content-type": "application/json"
+    }
+  })
+  .then(async (response) => {
+    data = await response.json();
+  })
+  .catch(async (error) => {
+    console.log(object)
+    //data = await error.json();
+  });
+
+  return data
+}
