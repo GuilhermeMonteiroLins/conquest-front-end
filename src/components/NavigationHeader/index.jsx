@@ -86,7 +86,8 @@ export function NavigationHeader(products) {
                                             <Dropdown className={styles.logOut} onClick={() =>
                                                 toggleDropdown()} options={[
                                                     { value: '/customer/customerAlt', label: 'Alterar Dados' },
-                                                    { value: '/customer/orderList', label: 'Listar Pedidos' }
+                                                    { value: '/customer/orderList', label: 'Listar Pedidos' },
+                                                    { value: '/customer/customerAddAddress', label: 'Novo endereço' }
                                                 ]} />
                                             <button className={styles.logOut} onClick={() => handleLogOut()}> Sair </button>
                                         </>

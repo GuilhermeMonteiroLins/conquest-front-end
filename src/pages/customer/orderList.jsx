@@ -17,7 +17,7 @@ export default function OrderList() {
   const pages = Math.ceil(orderList.length / ITEMS_PER_PAGE)
   const startPage = currentPage * ITEMS_PER_PAGE
   const endPage = startPage + ITEMS_PER_PAGE
-  const [pagedItems, setPagedItems] = useState()
+  const pagedItems = orderList.slice(startPage, endPage)
 
 
   const fetchOrderList = async () => {
@@ -28,11 +28,6 @@ export default function OrderList() {
       console.log(error)
     }
   }
-  useEffect(() => {
-    if(orderList.length > 0){
-      setPagedItems(orderList?.slice(startPage, endPage))
-    }
-  }, [orderList])
 
   useEffect(() => {
     setCurrentPage(0)

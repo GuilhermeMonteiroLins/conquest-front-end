@@ -512,15 +512,24 @@ export const apiAddAddress = async (address, idCustomer) => {
   let data = {}
   
   const payload = {
-    address: idCustomer,
-    ...address,
+    userId: idCustomer,
+    addressId: address.addressId,
+    cep: address.cep,
+    logradouro: address.logradouro,
+    bairro: address.bairro,
+    localidade: address.localidade,
+    uf: address.uf,
+    complemento: address.complemento,
+    numero: address.numero,
+    isAddressCustomer: address.addressCustomer
   }
+  window.alert(payload)
 
   await fetch(`${url}/customer/register/address`, {
     method: 'POST',
     body: payload,
     headers: {
-      "Content-type": "application/json"
+      "Content-type": "application/json",
     }
   })
   .then(async (response) => {
@@ -533,7 +542,7 @@ export const apiAddAddress = async (address, idCustomer) => {
 
   return data
 }
-=======
+
 export const apiOrders = async () => {
   let data = [];
   const object = []

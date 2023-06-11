@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from '@/styles/pages/user/UserAddAddress.module.scss';
+import styles from '@/styles/pages/customer/customerAddAddress.module.scss';
 import { apiAddAddress, apiCEPList } from "@/services/api";
 import Head from "next/head";
 
@@ -13,7 +13,7 @@ const UserAddAddress = () => {
         localidade: '',
         uf: '',
         complemento: '',
-        numero: '',
+        numero: 0,
         addressCustomer: false
     })
 
@@ -40,7 +40,7 @@ const UserAddAddress = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = await apiAddAddress(endereco, userId)
-        window.alert(data)
+        window.alert(Object.keys(endereco))
     }
 
     const handleClearForm = (e) => {
@@ -52,7 +52,7 @@ const UserAddAddress = () => {
             localidade: '',
             uf: '',
             complemento: '',
-            numero: '',
+            numero: 0,
             addressCustomer: false
         })
     }
@@ -105,7 +105,7 @@ const UserAddAddress = () => {
                         <input type="text" required name="complemento" value={endereco.complemento} onChange={(e) => setEndereco({ ...endereco, [e.target.name]: e.target.value })} />
 
                         <label htmlFor="uf">Número</label>
-                        <input type="number" min="1" required name="numero" value={endereco.numero} onChange={(e) => setEndereco({ ...endereco, [e.target.name]: e.target.value })} />
+                        <input type="number" min="1" required name="numero" value={endereco.numero} onChange={(e) => setEndereco({ ...endereco, [e.target.name]: Number(e.target.value) })} />
 
                         <div className={styles.buttons}>
                             <button className={styles.cancelButton} onClick={(e) => handleClearForm(e)}>Cancelar</button>
