@@ -508,6 +508,41 @@ export const apiOrderList = async (id) => {
   // Retornar apenas a lista
 };
 
+export const apiAddAddress = async (address, idCustomer) => {
+  let data = {}
+  
+  const payload = {
+    userId: idCustomer,
+    addressId: address.addressId,
+    cep: address.cep,
+    logradouro: address.logradouro,
+    bairro: address.bairro,
+    localidade: address.localidade,
+    uf: address.uf,
+    complemento: address.complemento,
+    numero: address.numero,
+    isAddressCustomer: address.addressCustomer
+  }
+  window.alert(payload)
+
+  await fetch(`${url}/customer/register/address`, {
+    method: 'POST',
+    body: payload,
+    headers: {
+      "Content-type": "application/json",
+    }
+  })
+  .then(async (response) => {
+    data = await response.json();
+  })
+  .catch(async (error) => {
+    console.log(object)
+    //data = await error.json();
+  });
+
+  return data
+}
+
 export const apiOrders = async () => {
   let data = [];
   const object = []
@@ -570,3 +605,4 @@ export const apiUpdateOrder = async (status, customerId, userId, orderId) => {
     });
   return data;
 }
+
