@@ -533,3 +533,67 @@ export const apiAddAddress = async (address, idCustomer) => {
 
   return data
 }
+=======
+export const apiOrders = async () => {
+  let data = [];
+  const object = []
+  await fetch(`${url}/backoffice/order`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    }
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(object)
+      //data = await error.json();
+    });
+  return data;
+  // Retornar apenas a lista
+};
+
+export const apiOrderSearch = async (id) => {
+  let data;
+
+  await fetch(`${url}/backoffice/order/id/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(error)
+    });
+
+  return data;
+}
+
+export const apiUpdateOrder = async (status, customerId, userId, orderId) => {
+  let data;
+
+  const object = JSON.stringify({
+    status: status,
+    customerId: customerId,
+    orderId:orderId
+  })
+  await fetch(`${url}/backoffice/order/update/status?user_id=${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: object,
+  })
+    .then(async (response) => {
+      data = await response.status;
+    })
+    .catch(async (error) => {
+      console.log(object)
+    });
+  return data;
+}
+

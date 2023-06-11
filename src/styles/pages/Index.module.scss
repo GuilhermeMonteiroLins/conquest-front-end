@@ -25,6 +25,7 @@
     height: 350px;
     border-radius: 15px;
     margin: 5px;
+    color: black !important;
     background-color: #FFF;
     padding: 5px;
 
@@ -46,6 +47,7 @@
 
 .produto:hover {
     background-color: #C4C4C4;
+    color: black !important;
     transform: scale(1.05);
     transition: all 0.3s ease-out;
 }
@@ -222,5 +224,17 @@
             width: 80px;
             height: 80px;
         }
+    }
+}
+
+@media screen and (max-width:700px){
+    .logOut {
+        height: 40px;
+        width: 40px;
+        margin-right: 15px;
+        border-radius: 5px;
+        outline: none;
+        cursor: pointer;
+        background-color: red;
     }
 }
