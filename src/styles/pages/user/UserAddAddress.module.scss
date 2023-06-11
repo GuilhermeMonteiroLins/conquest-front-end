@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.container {
+    background-color: #12131b;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    section {
+        background-color: #1b1c29;
+        min-width: 400px;
+        width: 50%;
+        height: 80%;
+        border-radius: 10px;
+        padding: 10px;
+
+        h1 {
+            text-align: center;
+            color: #FFF;
+            font-weight: bolder;
+            font-size: xx-large;
+        }
+
+        label {
+            color: #fff;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .buttons {
+            .cancelButton {
+                border-radius: 20px;
+                background-color: red;
+            }
+
+            .sendButton {
+                background-color: green;
+            }
+        }
+    }
+}
