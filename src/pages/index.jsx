@@ -34,13 +34,15 @@ const Home = (props) => {
                     <>
                         {products.map(product => {
                             return (
-                                <div key={product.id} className={styles.produto} onClick={() => router.push(`/product/${product.productId}`)}>
-                                    <img src={product.productImages != null ? product.productImages.length > 0 ? product.productImages[0].imageBase64 : './../images/noimage.png' : './../images/noimage.png'} alt={product.productDescription} />
-                                    <span><strong>Nome: </strong>{product.productName}</span> <br />
-                                    <span><strong>Review: </strong>{product.productReview}</span> <br />
-                                    <span><strong>Valor: </strong>{product.productValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-                                </div>
-                            )
+                                product.productStatus == true ?
+                                    <div key={product.id} className={styles.produto} onClick={() => router.push(`/product/${product.productId}`)}>
+                                        <img src={product.productImages != null ? product.productImages.length > 0 ? product.productImages[0].imageBase64 : './../images/noimage.png' : './../images/noimage.png'} alt={product.productDescription} />
+                                        <span><strong>Nome: </strong>{product.productName}</span> <br />
+                                        <span><strong>Review: </strong>{product.productReview}</span> <br />
+                                        <span><strong>Valor: </strong>{product.productValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                                    </div>
+                                    : <></>
+                                )
                         })}
                     </> : <> </>
                 }
