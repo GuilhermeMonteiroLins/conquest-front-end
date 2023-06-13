@@ -510,10 +510,9 @@ export const apiOrderList = async (id) => {
 
 export const apiAddAddress = async (address, idCustomer) => {
   let data = {}
-  
   const payload = {
     userId: idCustomer,
-    addressId: address.addressId,
+    // addressId: address.addressId,
     cep: address.cep,
     logradouro: address.logradouro,
     bairro: address.bairro,
@@ -523,11 +522,13 @@ export const apiAddAddress = async (address, idCustomer) => {
     numero: address.numero,
     isAddressCustomer: address.addressCustomer
   }
-  window.alert(payload)
+  
+  // window.alert('content/n ' + Object.entries(payload))
+  // console.log('conteudo', payload)
 
   await fetch(`${url}/customer/register/address`, {
     method: 'POST',
-    body: payload,
+    body: JSON.stringify(payload),
     headers: {
       "Content-type": "application/json",
     }
@@ -606,3 +607,7 @@ export const apiUpdateOrder = async (status, customerId, userId, orderId) => {
   return data;
 }
 
+export const apiDisableAddress = async (idAddress) => {
+  const response = await fetch(`${url}/customer/disable/address?id_address=${idAddress}`);
+  return response;
+}
