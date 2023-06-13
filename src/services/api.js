@@ -607,3 +607,7 @@ export const apiUpdateOrder = async (status, customerId, userId, orderId) => {
   return data;
 }
 
+export const apiDisableAddress = async (idAddress) => {
+  const response = await fetch(`${url}/customer/disable/address?id_address=${idAddress}`);
+  return response;
+}

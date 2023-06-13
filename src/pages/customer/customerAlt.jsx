@@ -5,7 +5,7 @@ import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import validarNome from "@/util/validarNome";
-import { apiCustomerAlt, apiCustomerData } from "@/services/api";
+import { apiCustomerAlt, apiCustomerData, apiListAddress, apiDisableAddress } from "@/services/api";
 
 export default function CustomerAlt() {
     const [id, setId] = useState("");
@@ -14,6 +14,7 @@ export default function CustomerAlt() {
     const [dataNascimento, setDataNascimento] = useState("");
     const [senha, setSenha] = useState("");
     const [senha2, setSenha2] = useState("");
+    const [endereco, setEndereco] = useState(null);
     const router = useRouter();
 
 
@@ -25,13 +26,26 @@ export default function CustomerAlt() {
         setDataNascimento(customerData.userBirthDate)
         setSenha(customerData.userPassword)
         setSenha2(customerData.userPassword)
+    }
 
-        console.log(customerData)
+    const fetchCustomerAddress = async () => {
+        if (id != 0) {
+            const response = await apiListAddress(id);
+
+            response.json().then(json => {
+                setEndereco(json);
+            })
+
+        }
     }
 
     useEffect(() => {
-        fetchCustomerData()
-    }, [])
+        fetchCustomerData();
+    }, []);
+
+    useEffect(() => {
+        fetchCustomerAddress();
+    }, [id]);
 
     const checaNome = (nome) => {
         if (validarNome(nome) == false) {
@@ -63,7 +77,7 @@ export default function CustomerAlt() {
             return alert("Campo inválido.");
         }
         let data = apiCustomerAlt(id, nome, genero, dataNascimento, senha);
-        
+
         alert("Usuário alterado!");
 
         router.push("/")
@@ -81,6 +95,20 @@ export default function CustomerAlt() {
             return true;
         }
         return false;
+    };
+
+    const handleDeleteAddress = async (idAddress, isAddressCustomer) => {
+        if (!isAddressCustomer) {
+            const response = await apiDisableAddress(idAddress);
+            alert("O endereço foi Excluido com sucesso");
+        } else {
+            alert("Esse endereço não pode ser excluido pois é o endereço de faturamento");
+        }
+    };
+
+    const handleAddAddress = (e) => {
+        e.preventDefault()
+        router.push("/customer/customerAddAddress")
     };
 
     return (
@@ -144,6 +172,29 @@ export default function CustomerAlt() {
                             <Button type="submit" color="primary">
                                 Salvar
                             </Button>
+                        </div>
+                    </form>
+                    <form>
+                        <div>
+                            <h1>Lista de Endereços</h1>
+                            <button onClick={e => handleAddAddress(e)}> + </button>
+                            <ul>
+                                {endereco?.map((address, index) => (
+                                    address.status == true ?
+                                        <div key={index}>
+                                            <p>ID: {address.addressId}</p>
+                                            <p>CEP: {address.cep}</p>
+                                            <p>Logradouro: {address.logradouro}</p>
+                                            <p>Bairro: {address.bairro}</p>
+                                            <p>Localidade: {address.localidade}</p>
+                                            <p>UF: {address.uf}</p>
+                                            <p>Complemento: {address.complemento}</p>
+                                            <p>Número: {address.numero}</p>
+                                            <button onClick={() => handleDeleteAddress(address.addressId, address.addressCustomer)}>x</button>
+                                        </div> :
+                                        <></>
+                                ))}
+                            </ul>
                         </div>
                     </form>
                 </div>
