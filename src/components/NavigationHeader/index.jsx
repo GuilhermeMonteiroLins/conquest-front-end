@@ -5,13 +5,12 @@ import Head from 'next/head';
 import Dropdown from "../DropDown/DropDown";
 import { listAllProductsBySearch } from "../../services/api"
 
-export function NavigationHeader(products) {
+export function NavigationHeader( props ) {
     const [userData, setUserData] = useState(undefined);
     const [cart, setCart] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
-    const [messageProduct, setMessageProduct] = useState(); 
-    const [isLoginOrRegisterHovered, setIsLoginOrRegisterHovered] = useState(false);
+    const [messageProduct, setMessageProduct] = useState();
     const router = useRouter();
 
     useEffect(() => {
@@ -22,8 +21,11 @@ export function NavigationHeader(products) {
 
     const handleSearch = async () => {
         if (search !== '' && search !== null && search !== undefined) {
-            products = await listAllProductsBySearch(search)
-            setMessageProduct(`Exibindo ${products.length} resultados para "${search}"`)
+            const products = await listAllProductsBySearch(search)
+            if (products !== null) {
+                props.setProducts(products);
+                setMessageProduct(`Exibindo ${products.length} resultados para "${search}"`);
+            }
         } else {
             window.alert("Pesquise por algo!")
         }

@@ -27,7 +27,7 @@ const Home = (props) => {
 
     return (
         <div className={styles.container}>
-            <NavigationHeader products={products} />
+            <NavigationHeader setProducts={setProducts} />
             <span style={{ color: '#FFF' }}>{messageProduct}</span>
             <main>
                 {products != null ?
