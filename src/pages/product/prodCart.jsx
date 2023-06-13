@@ -70,7 +70,9 @@ const ProdCart = () => {
         if (products?.length > 0 && address != null) {
             let min = Math.ceil(5);
             let max = Math.floor(20);
-            return Math.floor(Math.random() * (max - min) + min);
+            let newFreight = Math.floor(Math.random() * (max - min) + min);
+            localStorage.setItem('freight', JSON.stringify(newFreight));
+            return newFreight;
         }
         return 0.00;
     }

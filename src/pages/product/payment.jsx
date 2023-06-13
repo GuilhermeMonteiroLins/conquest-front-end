@@ -14,12 +14,14 @@ function Payment() {
     const [isLoading, setLoading] = useState(true);
     const [cart, setCart] = useState([]);
     const [address, setAddress] = useState({});
+    const [freight, setFreight] = useState({});
     const [isCard, setCard] = useState(true);
     const [formValues, setFormValues] = useState({});
 
     useEffect(() => {
         setCart(JSON.parse(localStorage.getItem('cart')));
         setAddress(JSON.parse(localStorage.getItem('address')))
+        setFreight(JSON.parse(localStorage.getItem('freight')))
         setLoading(false);
     }, [isLoading]);
 
@@ -45,7 +47,7 @@ function Payment() {
         const json = {
             "customerId": address.userId,
             "amount": calculateValue(),
-            "freightValue": 200,
+            "freightValue": freight,
             "formPayment": isCard ? 'CARTÃO' : "BOLETO",
             "dateOrder": generateDateStringPattern(),
             "addressId": address.addressId,
@@ -55,10 +57,11 @@ function Payment() {
         const response = await orderAdd(json);
 
         if (response) {
-            alert("Número do pedido gerado com sucesso: " + response);
+            alert("Número do Pedido: " + response + " / total:" + calculateValue().toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
             Toastify(toastifyConfig.login).showToast();
             localStorage.removeItem('cart');
             localStorage.removeItem('address');
+            localStorage.removeItem('freight')
             router.push('/');
             return;
         }
@@ -72,7 +75,7 @@ function Payment() {
             total = total + (prod.productPrice * prod.productQtd);
         }
 
-        return 200 + total;
+        return total + freight;
     }
 
     return (
