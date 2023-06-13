@@ -4,6 +4,10 @@ import styles from '@/styles/pages/customer/customerAddAddress.module.scss';
 import { apiAddAddress, apiCEPList } from "@/services/api";
 import Head from "next/head";
 
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+import toastifyConfig from '@/util/ToastifyConfigs/toastifyConfig';
+
 const UserAddAddress = () => {
 
     const [endereco, setEndereco] = useState({
@@ -40,7 +44,13 @@ const UserAddAddress = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = await apiAddAddress(endereco, userId)
-        window.alert(Object.keys(endereco))
+
+        if (Number(data.status) === 201) {
+            Toastify(toastifyConfig.addressAdded).showToast()
+        } else {
+            Toastify(toastifyConfig.genericError).showToast()
+        }
+
     }
 
     const handleClearForm = (e) => {

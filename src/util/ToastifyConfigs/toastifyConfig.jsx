@@ -57,6 +57,22 @@ const toastifyConfig = {
         position: "center",
         backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"     
     },
+    addressAdded: {
+        text: "O endereço foi adicionado com sucesso! 🚀",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+        close: true
+    },
+    genericError: {
+        text: "Ops, houve um problema ao tentar realizar a ação! ",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+        close: true
+    }
 };
 
 export default toastifyConfig; 
