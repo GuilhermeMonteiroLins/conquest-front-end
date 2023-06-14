@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.article {
+    display: flex;
+    justify-content: space-between;
+
+    height: 150px;
+    width: 80%;
+    border-radius: 15px;
+
+    background-color: #576783;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    .productImage {
+        height: 100%;
+        width: 15%;
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
