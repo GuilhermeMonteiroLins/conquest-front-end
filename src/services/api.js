@@ -448,8 +448,8 @@ export const listAllProducts = async () => {
       "Content-type": "application/json"
     }
   })
-  .then(response => data = response.json())
-  .catch(error => console.log(error))
+    .then(response => data = response.json())
+    .catch(error => console.log(error))
   return data;
 }
 
@@ -522,7 +522,7 @@ export const apiAddAddress = async (address, idCustomer) => {
     numero: address.numero,
     isAddressCustomer: address.addressCustomer
   }
-  
+
   // window.alert('content/n ' + Object.entries(payload))
   // console.log('conteudo', payload)
 
@@ -533,13 +533,13 @@ export const apiAddAddress = async (address, idCustomer) => {
       "Content-type": "application/json",
     }
   })
-  .then(async (response) => {
-    data = await response.json();
-  })
-  .catch(async (error) => {
-    console.log(object)
-    //data = await error.json();
-  });
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(object)
+      //data = await error.json();
+    });
 
   return data
 }
@@ -589,7 +589,7 @@ export const apiUpdateOrder = async (status, customerId, userId, orderId) => {
   const object = JSON.stringify({
     status: status,
     customerId: customerId,
-    orderId:orderId
+    orderId: orderId
   })
   await fetch(`${url}/backoffice/order/update/status?user_id=${userId}`, {
     method: "PUT",
@@ -610,4 +610,23 @@ export const apiUpdateOrder = async (status, customerId, userId, orderId) => {
 export const apiDisableAddress = async (idAddress) => {
   const response = await fetch(`${url}/customer/disable/address?id_address=${idAddress}`);
   return response;
+}
+
+export const apiCustomerOrderSearch = async (id) => {
+  let data;
+
+  await fetch(`${url}/customer/order/detail?order_id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then(async (response) => {
+      data = await response.json();
+    })
+    .catch(async (error) => {
+      console.log(error)
+    });
+
+  return data;
 }
