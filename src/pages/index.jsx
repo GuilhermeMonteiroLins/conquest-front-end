@@ -40,6 +40,7 @@ const Home = (props) => {
                                         <span><strong>Nome: </strong>{product.productName}</span> <br />
                                         <span><strong>Review: </strong>{product.productReview}</span> <br />
                                         <span><strong>Valor: </strong>{product.productValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                                        <button></button>
                                     </div>
                                     : <></>
                                 )

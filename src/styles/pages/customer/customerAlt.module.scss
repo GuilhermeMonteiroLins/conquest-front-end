@@ -1,59 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Poppins:wght@500&display=swap');
-
 .container {
-    margin: 0 auto;
-    margin-top: 10%;
-    max-width: 425px;
-    max-height: 650px;
-}
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #1b1c29;
+  margin: 0 auto;
+  margin-top: 0%;
+  width: auto;
+  max-width: 950px;
 
-.h1 {
-    font-family: Poppins;
+  h1 {
     font-size: 24px;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
-}
+  }
 
-.containerInput {
-    background-color: #1B1C29;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    margin-left: 60px;
-    margin-right: 60px;
-}
-
-.label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.buttonGroup {
-    display: flex;
-    justify-content: space-between;
+  h2 {
+    font-size: 24px;
+    text-align: center;
     margin-top: 20px;
-    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+.tittle2{
+  display: flex;
+  justify-content: center;
+  h3 {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;}
+  }
+}
 
-    .button {
-        flex-basis: 48%;
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
+.altUser {
+  display: flex;
+  margin-left: 20px;
+
+  input{
+    margin-bottom: 10px;
+  }
+}
+
+.listEnd {
+  margin-left: 40px;
+
+  ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px; 
+  }
+
+  .card {
+    border-radius: 10px;
+    background-color: #12131b;
+    border-radius: 10px;
+    margin: 15px;
+    border: 1px solid #a3c4ff;
+    padding: 10px;
+  }
+  .delete {
+    display: flex;
+    justify-content: end;
+    button {
+      display: flex;
+      justify-content: center;
+      background-color: #a3c4ff;
+      color: #12131b;
+      font-size: 16px;
+      height: 30px;
+      width: 30px;
+      border-radius: 2px;
+      border: none;
+      transition: background 250ms;
+      padding: 5px;
     }
-
+  }
 }
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-.button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.add {
+  display: flex;
+  justify-content: center;
+  button {
+    cursor: pointer;
+    background-color: #a3c4ff;
+    color: #12131b;
+    font-size: 16px;
+    height: auto;
+    width: auto;
+    border-radius: 2px;
+    border: none;
+    transition: background 250ms;
+    padding: 5px;
+  }
+  button:hover {
+    background-color: #608edd;
+  }
 }

@@ -1,48 +1,83 @@
-@charset "UTF-8";
-
 .container {
-    background-color: #12131b;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #12131b;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    section {
-        background-color: #1b1c29;
-        min-width: 400px;
-        width: 50%;
-        height: 80%;
-        border-radius: 10px;
-        padding: 10px;
+  section {
+    background-color: #1b1c29;
+    width: 600px;
+    height: 550px;
+    border-radius: 10px;
+    padding: 10px;
 
-        h1 {
-            text-align: center;
-            color: #FFF;
-            font-weight: bolder;
-            font-size: xx-large;
-        }
+    h1 {
+      text-align: center;
+      color: #fff;
+      font-weight: bolder;
+      font-size: xx-large;
+    }
 
-        label {
-            color: #fff;
-        }
+    .divisao{
+        display: flex;
 
-        form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .buttons {
-            .cancelButton {
-                border-radius: 20px;
-                background-color: red;
-            }
-
-            .sendButton {
-                background-color: green;
-            }
+        button{
+            margin-left: 2px;
+            height: 40px;
+            width: 40px;
+            background-color: #A3C4FF;
+            border: none;
+            border-radius: 2px;
         }
     }
+
+    input {
+      font-size: 16px;
+      height: 40px;
+      width: 100%;
+      border-radius: 2px;
+      border: none;
+      color: #fff;
+      padding: 0 5px;
+      background-color: #576783;
+      &::placeholder {
+        color: #c4c4c4bd;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+.buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cancelButton {
+    background-color: #ff6868;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 3px 20px;
+  }
+
+  .sendButton {
+    background-color: #3fbe5b;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 3px 20px;
+    margin-left: 10px;
+  }
 }

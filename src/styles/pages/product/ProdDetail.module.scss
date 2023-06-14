@@ -4,9 +4,9 @@
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    background-color: red;
 
     section {
+        margin-top: 20px;
         width: 100vw;
         height: 80vh;
         display: flex;
@@ -16,9 +16,7 @@
     }
 
     aside {
-        // border: solid red 2px;
         width: 380px;
-        word-break: break-all;
         color: #FFF;
 
         h1 {
@@ -168,11 +166,11 @@
 }
 
 .btnCart {
-    background-color: black;
-    color: white;
+    background-color: #A3C4FF;
+    color: #000;
 }
 
 .btnBuy {
-    background-color: white;
+    background-color: #3FBE5B;
     color: black;
 }

@@ -17,7 +17,7 @@ export default function ProdDetail(props) {
             setProduct(data);
             setLoading(false);
         })
-    }, [isLoading]);
+    }, [id]);
 
     const getProduct = async () => await apiProdVisualize(id);
 
