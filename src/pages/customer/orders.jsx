@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import styles from '@/styles/pages/user/List.module.scss'
+import styles from '@/styles/pages/customer/customerOrder.module.scss'
 import { apiOrderSearch, apiOrders } from "@/services/api";
 import { useRouter } from "next/router"
 import { Button } from '@/components/Button'

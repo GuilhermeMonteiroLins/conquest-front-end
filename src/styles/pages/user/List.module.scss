@@ -37,16 +37,8 @@
 }
 
 .topbar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 50%;
-
   .cad {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-
     .userCad {
       font-weight: bold;
       background-color: #a3c4ff;
@@ -57,7 +49,22 @@
       border-radius: 2px;
       border: none;
       transition: background 250ms;
-      margin-top: 20px;
+    }
+
+    input{
+      border-radius: 2px;
+      border: none;
+      background-color: #576783;
+      width: 300px;
+      height: 40px;
+      padding: 10px;
+      margin-right: 2px;
+    }
+    input::placeholder{
+      color: #FFFFFF;
+    }
+    button{
+      margin-left:0px;
     }
   }
 
@@ -119,9 +126,9 @@
 
   button {
     border-radius: 5px;
-    width: 60px;
-    height: 30px;
-    background-color: green;
+    width: 40px;
+    height: 40px;
+    background-color: #A3C4FF;
   }
 }
 
@@ -171,10 +178,10 @@
 
   button {
     border-radius: 10px;
-    width: 60px;
-    height: 40px;
-    background-color: green;
-    border: solid black 2px;
+    width: 45px;
+    height: 45px;
+    background-color: #a3c4ff;
+    border: solid black 1px;
   }
 }
 

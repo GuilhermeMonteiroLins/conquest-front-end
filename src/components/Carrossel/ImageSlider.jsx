@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ImageSlider = ({ slides }) => {
+const ImageSlider = ({ slides = []}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const sliderStyles = {
@@ -14,7 +14,7 @@ const ImageSlider = ({ slides }) => {
         borderRadius: '10px',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        backgroundImage: `url(${slides[currentIndex].imageBase64})`,
+        backgroundImage: `url(${slides[currentIndex]?.imageBase64})`,
     };
 
     const leftArrowStyles = {

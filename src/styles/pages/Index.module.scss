@@ -17,6 +17,11 @@
         justify-content: space-around;
         align-items: center;
     }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
 }
 
 .produto {

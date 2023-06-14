@@ -89,6 +89,7 @@ export default function List() {
             <button onClick={() => handleUserSearch()} type="button" className={styles.userCad}>
               🔍
             </button>
+            
             <button onClick={() => router.push("userCad")} type="button" className={styles.userCad}>
               +
             </button>

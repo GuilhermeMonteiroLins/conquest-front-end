@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import styles from '@/styles/pages/user/List.module.scss'
+import styles from '@/styles/pages/product/prodList.module.scss'
 import { apiProdList, apiProdSearch, apiProdStatus } from '@/services/api'
 import { useRouter } from "next/router"
 import { Toggle } from 'rsuite'
@@ -96,9 +96,11 @@ export default function List() {
             <button onClick={() => handleProdSearch()} type="button" className={styles.userCad}>
               🔍
             </button>
-            <button onClick={() => router.push("prodCad")} type="button" className={styles.userCad}>
-              +
-            </button>
+            <div className={styles.btncad}>
+              <button onClick={() => router.push("prodCad")} type="button" className={styles.userCad}>
+                +
+              </button>
+            </div>
           </div>
         </div>
 
