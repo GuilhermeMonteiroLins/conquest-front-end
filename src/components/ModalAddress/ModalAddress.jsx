@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import style from './ModalAddress.module.scss'
+import { Button } from '@/components/Button'
 import { Router } from 'react-router-dom';
 import { useRouter } from 'next/router';
 
-const ModalAddress = ({ addresses, onClose, onSelect}) => {
+const ModalAddress = ({ addresses, onClose, onSelect }) => {
   const [selectedAddress, setSelectedAddress] = useState('');
   const router = useRouter();
 
@@ -17,44 +18,45 @@ const ModalAddress = ({ addresses, onClose, onSelect}) => {
     onSelect(selectedAddress)
   };
 
-  const handleAddAddress = () =>{
+  const handleAddAddress = () => {
     router.push("/customer/customerAddAddress")
   };
 
   return (
     <div className={style.modal}>
       <div className={style.modalContent}>
-        <h2>Selecione um endereço</h2>
-        <button onClick={handleAddAddress}> + </button>
-        <ul>
+        <h2 className={style.h2}>Selecione um endereço</h2>
+      <Button onClick={handleAddAddress} type="button" color={"goback"}>Adicionar Novo Endereço</Button>
+        <section>
           {addresses?.map((address) => (
 
             address.status == true ?
               <>
+                <div className={style.card}>
+                  <div
+                    key={address.id}
+                    onClick={() => handleSelect(address)}
+                    className={selectedAddress === address ? 'selected' : ''}
+                  >
+                    <p className={style.id}><strong>ID:</strong> {address.addressId}</p>
+                    <p className={style.infAddress}><strong>Bairro:</strong> {address.bairro}</p>
+                    <p className={style.infAddress}><strong>CEP: </strong>{address.cep}</p>
+                    <p className={style.infAddress}><strong>Localidade: </strong>{address.localidade}</p>
+                    <p className={style.infAddress}><strong>Logradouro: </strong>{address.logradouro}</p>
+                    <p className={style.infAddress}><strong>Número: </strong>{address.numero}</p>
 
-                <li
-                  key={address.id}
-                  onClick={() => handleSelect(address)}
-                  className={selectedAddress === address ? 'selected' : ''}
-                >
-                  <p>{address.addressId}</p>
-                  <p>{address.bairro}</p>
-                  <p>{address.cep}</p>
-                  <p>{address.localidade}</p>
-                  <p>{address.logradouro}</p>
-                  <p>{address.numero}</p>
-
-                </li>
+                  </div>
+                </div>
               </>
               : <></>
 
           ))}
-        </ul>
+        </section>
         <div className={style.modalActions}>
-          <button onClick={onClose}>Fechar</button>
-          <button onClick={handleSubmit} disabled={!selectedAddress}>
+          <Button onClick={onClose} type="button" color={"cancel"} >Cancelar</Button>
+          <Button onClick={handleSubmit} disabled={!selectedAddress} type="button" color={"primary"} style={{marginLeft:"10px", backgroundColor:selectedAddress? "#3fbe5b" : "#565856"}}>
             Selecionar
-          </button>
+          </Button>
         </div>
       </div>
     </div>

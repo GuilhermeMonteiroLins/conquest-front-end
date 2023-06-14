@@ -2,6 +2,7 @@ import React, { use } from "react";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from 'next/router'
+import { Button } from '@/components/Button'
 import styles from "@/styles/pages/product/ProdCart.module.scss";
 import { NavigationHeader } from "@/components/NavigationHeader";
 import { apiCEPList, apiListAddress } from '@/services/api';
@@ -125,7 +126,7 @@ const ProdCart = () => {
         if (products?.length > 0) {
             localStorage.setItem('address', JSON.stringify(selectAddress));
             router.push("/product/payment");
-        }else{
+        } else {
             Toastify(toastifyConfig.errorCartEmpty).showToast();
             return;
         }
@@ -187,7 +188,7 @@ const ProdCart = () => {
                                     <p>Total: {(totalPrice + randomFreight).toFixed(2)}</p>
                                 </span>
 
-                                <span>
+                                <span className={styles.spnAddress}>
                                     <section className={styles.linksToSearchAddress}>
                                         <a
                                             href="#"
@@ -208,18 +209,17 @@ const ProdCart = () => {
                                             </> : <> </>
                                     }
 
-                                    <button onClick={openModal}> Selecione um endereço </button>
+                                    <Button onClick={openModal} type="button" style={{ height: "40px", width: "100%", backgroundColor: "#576783" }}> Selecione um endereço </Button>
                                     {isModalOpen && (
                                         <Modaladdress addresses={address} onClose={closeModal} onSelect={setSelectAddress} />
                                     )}
                                     <p> Endereço: {selectAddress?.logradouro} - {selectAddress?.numero} / {selectAddress?.localidade} </p>
                                 </span>
+                                <div className={styles.botoes}>
+                                    <Button onClick={() => router.push("/")} type="button" color={"cancel"} style={{ height: "40px", width: "100%" }}>Continuar Comprando</Button>
+                                    <Button onClick={() => handleSubmitToPayment()} type="button" color={"primary"}>Efetuar Pedido</Button>
+                                </div>
                             </span>
-
-                            <div className={styles.botoes}>
-                                <button onClick={() => router.push("/")}>Continuar Comprando</button>
-                                <button onClick={() => handleSubmitToPayment()}>Pagamento</button>
-                            </div>
                         </footer>
                     </> : <></>
             }
