@@ -2,12 +2,15 @@ import React, { useState, useEffect, use } from "react";
 import { useRouter } from 'next/router'
 import { NavigationHeader } from "@/components/NavigationHeader";
 import { Input } from '@/components/Input'
+import { Button } from '@/components/Button'
 import styles from "@/styles/pages/product/ProdPayment.module.scss";
 import generateDateStringPattern from '@/services/date';
 import { orderAdd } from "@/services/api";
+import { apiListAddress } from '@/services/api';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import toastifyConfig from '@/util/ToastifyConfigs/toastifyConfig';
+import Modaladdress from "../../components/ModalAddress/ModalAddress";
 
 function Payment() {
     const router = useRouter();
@@ -19,10 +22,11 @@ function Payment() {
     const [formValues, setFormValues] = useState({});
 
     useEffect(() => {
-        setCart(JSON.parse(localStorage.getItem('cart')));
+        setCart(JSON.parse(localStorage.getItem('cart')))
         setAddress(JSON.parse(localStorage.getItem('address')))
         setFreight(JSON.parse(localStorage.getItem('freight')))
         setLoading(false);
+        calculateValue();
     }, [isLoading]);
 
     const handleInputChange = (e) => {
@@ -61,7 +65,7 @@ function Payment() {
             Toastify(toastifyConfig.login).showToast();
             localStorage.removeItem('cart');
             localStorage.removeItem('address');
-            localStorage.removeItem('freight')
+            localStorage.removeItem('freight');
             router.push('/');
             return;
         }
@@ -76,6 +80,37 @@ function Payment() {
         }
 
         return total + freight;
+    };
+
+
+    const removeProduct = (currentIndex) => {
+        if (cart.length > 0) {
+            let newList = cart;
+            newList.splice(currentIndex, 1);
+            localStorage.removeItem("cart");
+            localStorage.setItem('cart', JSON.stringify(newList));
+            window.location.reload(true);
+            return;
+        }
+
+        localStorage.removeItem("cart");
+        window.location.reload(true);
+    }
+
+    const handleQuantity = (currentId, currentIndex, currentQuantity) => {
+        if (currentQuantity > 0) {
+            let prod = cart.filter(current => currentId === current.productId)[0];
+            let newList = cart;
+            newList.splice(currentIndex, 1);
+            prod.productQtd = currentQuantity;
+            newList.push(prod);
+            setCart(newList);
+            localStorage.removeItem("cart");
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.location.reload(true)
+        } else {
+            alert("abaixo de 0 num pode! :(")
+        }
     }
 
     return (
@@ -84,7 +119,33 @@ function Payment() {
             {
                 !isLoading ?
                     <>
+                        <main className={styles.main}>
+                            <h1>Detalhe do Pedido</h1>
+                            <div className={styles.products}>
 
+                                {cart?.map((prod, index) => {
+                                    return (
+                                        <div className={styles.product}>
+                                            <div className={styles.imagemProduto}>
+                                                <img src={prod.imageBase64} alt="" />
+                                            </div>
+                                            <div className={styles.productInfo}>
+                                                {prod.productName}
+                                                <div>
+                                                    <button onClick={() => handleQuantity(prod.productId, index, --prod.productQtd)}>-</button>
+                                                    <span>&nbsp;{prod.productQtd}&nbsp;</span>
+                                                    <button onClick={() => handleQuantity(prod.productId, index, ++prod.productQtd)}>+</button>
+                                                </div>
+                                                Preço: {prod.productPrice * prod.productQtd}
+                                            </div>
+                                            <div className={styles.removerProduto} onClick={() => removeProduct(index)}>
+                                                X
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </main>
                         <form onSubmit={handleSubmit} className={styles.formPayment}>
                             <label>
                                 Deseja comprar no boleto?
@@ -153,6 +214,15 @@ function Payment() {
                             }
                             <button>Concluir pagamento</button>
                         </form>
+                        <footer className={styles.footer}>
+                            <span className={styles.footerPrice}>
+                                <span>
+                                    <p>Frete: {freight.toFixed(2)}</p>
+                                    <p>Total: {calculateValue().toFixed(2)}</p>
+                                </span>
+                                <p> Endereço: {address?.logradouro} - {address?.numero} / {address?.localidade} </p>
+                            </span>
+                        </footer>
                     </> : <></>
             }
         </>
