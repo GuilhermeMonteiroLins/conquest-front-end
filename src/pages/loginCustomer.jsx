@@ -31,6 +31,9 @@ export default function Login() {
 
   }
 
+  const handleAddCustomer = async (e) => {
+    router.push("/customer/customerCad")
+  }
   return (
     <div className={styles.container}>
       <div className={styles.logo} style={{cursor:"pointer"}}onClick={() => router.push("/")}>
@@ -48,6 +51,7 @@ export default function Login() {
         type="password" 
         placeholder="senha" />
         <button type="button" onClick={handleSubmit}>Acessar</button>
+        <button type="button" onClick={handleAddCustomer}>Cadastrar</button>
       </form>
     </div>
   )

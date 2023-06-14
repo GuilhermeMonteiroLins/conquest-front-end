@@ -145,84 +145,85 @@ function Payment() {
                                     )
                                 })}
                             </div>
-                        </main>
-                        <form onSubmit={handleSubmit} className={styles.formPayment}>
-                            <label>
-                                Deseja comprar no boleto?
-                                <Input type={"checkbox"} onClick={() => setCard(!isCard)}></Input>
-                            </label>
-                            {isCard ?
-                                <>
-                                    <h3>Adicione os dados do cartão:</h3>
-                                    <Input
-                                        onChange={() => handleInputChange}
-                                        placeholder={"Nome completo"}
-                                        name={"name"}
-                                        value={formValues.name}
-                                        maxLength={160}
-                                        required
-                                    ></Input>
-                                    <Input
-                                        onChange={() => handleInputChange}
-                                        placeholder={"Número do cartão"}
-                                        name={"cardNumber"}
-                                        value={formValues.cardNumber}
-                                        maxLength={16}
-                                        required
-                                    ></Input>
-                                    <section className={styles.inputGroup}>
-                                        <label>
-                                            CVV
-                                            <Input
-                                                onChange={() => handleInputChange}
-                                                placeholder={"CVV"}
-                                                name={"cvv"}
-                                                value={formValues.cvv}
-                                                maxLength={3}
-                                                required
-                                            ></Input>
-                                        </label>
+                            <form onSubmit={handleSubmit} className={styles.formPayment}>
+                                <label>
+                                    Deseja comprar no boleto?
+                                    <Input type={"checkbox"} onClick={() => setCard(!isCard)}></Input>
+                                </label>
+                                {isCard ?
+                                    <>
+                                        <h3>Adicione os dados do cartão:</h3>
+                                        <Input
+                                            onChange={() => handleInputChange}
+                                            placeholder={"Nome completo"}
+                                            name={"name"}
+                                            value={formValues.name}
+                                            maxLength={160}
+                                            required
+                                        ></Input>
+                                        <Input
+                                            onChange={() => handleInputChange}
+                                            placeholder={"Número do cartão"}
+                                            name={"cardNumber"}
+                                            value={formValues.cardNumber}
+                                            maxLength={16}
+                                            required
+                                        ></Input>
+                                        <section className={styles.inputGroup}>
+                                            <label>
+                                                CVV
+                                                <Input
+                                                    onChange={() => handleInputChange}
+                                                    placeholder={"CVV"}
+                                                    name={"cvv"}
+                                                    value={formValues.cvv}
+                                                    maxLength={3}
+                                                    required
+                                                ></Input>
+                                            </label>
 
-                                        <label>
-                                            Data de vencimento:
-                                            <Input
-                                                onChange={() => handleInputChange}
-                                                type={"date"}
-                                                placeholder={"Data de vencimento"}
-                                                name={"date"}
-                                                value={formValues.date}
-                                                required
-                                            ></Input>
-                                        </label>
-                                    </section>
+                                            <label>
+                                                Data de vencimento:
+                                                <Input
+                                                    onChange={() => handleInputChange}
+                                                    type={"date"}
+                                                    placeholder={"Data de vencimento"}
+                                                    name={"date"}
+                                                    value={formValues.date}
+                                                    required
+                                                ></Input>
+                                            </label>
+                                        </section>
 
-                                    <Input
-                                        onChange={() => handleInputChange}
-                                        placeholder={"Número de parcelas"}
-                                        type={"number"}
-                                        name={"installments"}
-                                        value={formValues.installments}
-                                        step="1"
-                                        max={12}
-                                        required
-                                    ></Input>
-                                </>
-                                : <>
-                                    <h3>Adicione os dados do boleto:</h3>
-                                    <Input onChange={() => handleInputChange} placeholder={"Nome completo"} required></Input>
-                                </>
-                            }
-                            <button>Concluir pagamento</button>
-                        </form>
-                        <footer className={styles.footer}>
-                            <span className={styles.footerPrice}>
-                                <span>
-                                    <p>Frete: {freight.toFixed(2)}</p>
-                                    <p>Total: {calculateValue().toFixed(2)}</p>
+                                        <Input
+                                            onChange={() => handleInputChange}
+                                            placeholder={"Número de parcelas"}
+                                            type={"number"}
+                                            name={"installments"}
+                                            value={formValues.installments}
+                                            step="1"
+                                            max={12}
+                                            required
+                                        ></Input>
+                                    </>
+                                    : <>
+                                        <h3>Adicione os dados do boleto:</h3>
+                                        <Input onChange={() => handleInputChange} placeholder={"Nome completo"} required></Input>
+                                    </>
+                                }
+                                <Button className={styles.btnAddOrder} >Concluir pagamento</Button>
+                            </form>
+                            <footer className={styles.footer}>
+                                <span className={styles.footerPrice}>
+                                    <span>
+                                        <p>Frete: {freight.toFixed(2)}</p>
+                                        <p>Total: {calculateValue().toFixed(2)}</p>
+                                    </span>
+                                    <p> Endereço: {address?.logradouro} - {address?.numero} / {address?.localidade} </p>
                                 </span>
-                                <p> Endereço: {address?.logradouro} - {address?.numero} / {address?.localidade} </p>
-                            </span>
-                        </footer>
+                            </footer>
+                        </main>
+
                     </> : <></>
             }
         </>
